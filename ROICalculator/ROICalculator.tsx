@@ -1060,279 +1060,101 @@ export function ROICalculator({
                         const gainAnnual = lostRevenueMonth * 12
                         const patientsAnnual = lostPatientsMonth * 12
 
-                        const statCardBase: React.CSSProperties = {
-                            background: "#F8F8F8",
-                            border: "1px solid #F0F0F0",
-                            borderRadius: 16,
-                            padding: "28px 20px",
-                            textAlign: "center",
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            gap: 6,
-                        }
-
                         return (
                             <div style={{ marginTop: isMobile ? 28 : 40 }}>
-                                {/* Section A — 3 stat cards */}
+                                {/* Section A — 3 stats in a row */}
                                 <div
                                     style={{
                                         display: "grid",
                                         gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr",
-                                        gap: 12,
+                                        gap: 0,
+                                        borderTop: "1px solid #F0F0F0",
                                     }}
                                 >
-                                    {/* Card 1: missed calls */}
-                                    <div style={statCardBase}>
-                                        <svg width="32" height="32" viewBox="0 0 256 256" fill="rgba(28,28,28,0.35)"><path d="M53.93,34.62A8,8,0,1,0,42.09,45.38L69.68,75.74a141.26,141.26,0,0,0-45.27,30.44c-20,20-21.92,49.46-4.69,71.67a16,16,0,0,0,18.38,5.07l49-17.37.29-.11a16,16,0,0,0,9.75-11.72l5.9-29.51a75.89,75.89,0,0,1,8.56-2.4l90.51,99.57a8,8,0,1,0,11.84-10.76Zm43.7,74.52a16,16,0,0,0-10.32,11.94l-5.9,29.5-48.78,17.3c-.1,0-.17.13-.27.17-12.33-15.9-11-36.22,3.36-50.56a125.79,125.79,0,0,1,45.47-29.1l18.3,20.14C98.87,108.73,98.25,108.92,97.63,109.14Zm138.65,68.71a16,16,0,0,1-18.38,5.07l-9.25-3.28A8,8,0,0,1,214,164.56l9.37,3.32.3.12c12.3-15.85,11-36.17-3.39-50.51-25.66-25.66-61.88-39.27-99.35-37.31a8,8,0,1,1-.83-16c42-2.19,82.63,13.1,111.49,42C251.58,126.17,253.51,155.64,236.28,177.85Z"/></svg>
-                                        <div
-                                            style={{
-                                                fontSize: 36,
-                                                fontWeight: 700,
-                                                color: "#1B1B1B",
-                                                letterSpacing: "-0.03em",
-                                                lineHeight: 1.1,
-                                                fontFamily: font,
-                                            }}
-                                        >
-                                            {formatFR(missedCallsMonth)}
-                                        </div>
-                                        <div
-                                            style={{
-                                                fontSize: 13,
-                                                color: "rgba(28,28,28,0.55)",
-                                                lineHeight: 1.4,
-                                            }}
-                                        >
-                                            appels manqués / mois
-                                        </div>
+                                    <div style={{
+                                        padding: isMobile ? "24px 0" : "28px 0",
+                                        textAlign: "center",
+                                        borderBottom: isMobile ? "1px solid #F0F0F0" : "none",
+                                        borderRight: isMobile ? "none" : "1px solid #F0F0F0",
+                                    }}>
+                                        <div style={{ fontSize: 13, color: "rgba(28,28,28,0.4)", marginBottom: 8 }}>appels manqués / mois</div>
+                                        <div style={{ fontSize: 32, fontWeight: 600, color: "#1B1B1B", letterSpacing: "-0.03em", fontFamily: font }}>{formatFR(missedCallsMonth)}</div>
                                     </div>
-
-                                    {/* Card 2: lost patients */}
-                                    <div style={statCardBase}>
-                                        <svg width="32" height="32" viewBox="0 0 256 256" fill="rgba(28,28,28,0.35)"><path d="M256,136a8,8,0,0,1-8,8H200a8,8,0,0,1,0-16h48A8,8,0,0,1,256,136Zm-57.87,58.85a8,8,0,0,1-12.26,10.3C165.75,181.19,138.09,168,108,168s-57.75,13.19-77.87,37.15a8,8,0,0,1-12.25-10.3c14.94-17.78,33.52-30.41,54.17-37.17a68,68,0,1,1,71.9,0C164.6,164.44,183.18,177.07,198.13,194.85ZM108,152a52,52,0,1,0-52-52A52.06,52.06,0,0,0,108,152Z"/></svg>
-                                        <div
-                                            style={{
-                                                fontSize: 36,
-                                                fontWeight: 700,
-                                                color: "#1B1B1B",
-                                                letterSpacing: "-0.03em",
-                                                lineHeight: 1.1,
-                                                fontFamily: font,
-                                            }}
-                                        >
-                                            {formatFR(lostPatientsMonth)}
-                                        </div>
-                                        <div
-                                            style={{
-                                                fontSize: 13,
-                                                color: "rgba(28,28,28,0.55)",
-                                                lineHeight: 1.4,
-                                            }}
-                                        >
-                                            patients potentiels perdus / mois
-                                        </div>
+                                    <div style={{
+                                        padding: isMobile ? "24px 0" : "28px 0",
+                                        textAlign: "center",
+                                        borderBottom: isMobile ? "1px solid #F0F0F0" : "none",
+                                        borderRight: isMobile ? "none" : "1px solid #F0F0F0",
+                                    }}>
+                                        <div style={{ fontSize: 13, color: "rgba(28,28,28,0.4)", marginBottom: 8 }}>patients potentiels perdus / mois</div>
+                                        <div style={{ fontSize: 32, fontWeight: 600, color: "#1B1B1B", letterSpacing: "-0.03em", fontFamily: font }}>{formatFR(lostPatientsMonth)}</div>
                                     </div>
-
-                                    {/* Card 3: lost revenue */}
-                                    <div
-                                        style={{
-                                            ...statCardBase,
-                                            background: "rgba(255,58,58,0.06)",
-                                            border: "1px solid rgba(255,58,58,0.1)",
-                                        }}
-                                    >
-                                        <svg width="32" height="32" viewBox="0 0 256 256" fill="#FF3A3A"><path d="M184,89.57V84c0-25.08-37.83-44-88-44S8,58.92,8,84v40c0,20.89,26.25,37.49,64,42.46V172c0,25.08,37.83,44,88,44s88-18.92,88-44V132C248,111.3,222.58,94.68,184,89.57ZM232,132c0,13.22-30.79,28-72,28-3.73,0-7.43-.13-11.08-.37C170.49,151.77,184,139,184,124V105.74C213.87,110.19,232,122.27,232,132ZM72,150.25V126.46A183.74,183.74,0,0,0,96,128a183.74,183.74,0,0,0,24-1.54v23.79A163,163,0,0,1,96,152,163,163,0,0,1,72,150.25Zm96-40.32V124c0,8.39-12.41,17.4-32,22.87V123.5C148.91,120.37,159.84,115.71,168,109.93ZM96,56c41.21,0,72,14.78,72,28s-30.79,28-72,28S24,97.22,24,84,54.79,56,96,56ZM24,124V109.93c8.16,5.78,19.09,10.44,32,13.57v23.37C36.41,141.4,24,132.39,24,124Zm64,48v-4.17c2.63.1,5.29.17,8,.17,3.88,0,7.67-.13,11.39-.35A121.92,121.92,0,0,0,120,171.41v23.46C100.41,189.4,88,180.39,88,172Zm48,26.25V174.4a179.48,179.48,0,0,0,24,1.6,183.74,183.74,0,0,0,24-1.54v23.79a165.45,165.45,0,0,1-48,0Zm64-3.38V171.5c12.91-3.13,23.84-7.79,32-13.57V172C232,180.39,219.59,189.4,200,194.87Z"/></svg>
-                                        <div
-                                            style={{
-                                                fontSize: 36,
-                                                fontWeight: 700,
-                                                color: "#FF3A3A",
-                                                letterSpacing: "-0.03em",
-                                                lineHeight: 1.1,
-                                                fontFamily: font,
-                                            }}
-                                        >
-                                            {formatFR(lostRevenueMonth)} €
-                                        </div>
-                                        <div
-                                            style={{
-                                                fontSize: 13,
-                                                color: "rgba(28,28,28,0.55)",
-                                                lineHeight: 1.4,
-                                            }}
-                                        >
-                                            manque à gagner / mois
-                                        </div>
+                                    <div style={{
+                                        padding: isMobile ? "24px 0" : "28px 0",
+                                        textAlign: "center",
+                                        borderBottom: "1px solid #F0F0F0",
+                                    }}>
+                                        <div style={{ fontSize: 13, color: "rgba(28,28,28,0.4)", marginBottom: 8 }}>manque à gagner / mois</div>
+                                        <div style={{ fontSize: 32, fontWeight: 600, color: primaryColor, letterSpacing: "-0.03em", fontFamily: font }}>{formatFR(lostRevenueMonth)} €</div>
                                     </div>
                                 </div>
 
-                                {/* Section B — Annual gain card */}
-                                <div
-                                    style={{
-                                        background: "rgba(16,185,129,0.06)",
-                                        border: "1px solid rgba(16,185,129,0.15)",
-                                        borderRadius: 20,
-                                        padding: 40,
-                                        textAlign: "center",
-                                        marginTop: 20,
-                                    }}
-                                >
-                                    <div
-                                        style={{
-                                            fontSize: 16,
-                                            fontWeight: 600,
-                                            color: "#1B1B1B",
-                                            marginBottom: 12,
-                                            fontFamily: font,
-                                        }}
-                                    >
-                                        Gain potentiel annuel avec Recept AI
-                                    </div>
-                                    <div
-                                        style={{
-                                            fontSize: isMobile ? 40 : 56,
-                                            fontWeight: 700,
-                                            color: "#10B981",
-                                            letterSpacing: "-0.04em",
-                                            lineHeight: 1,
-                                            fontVariantNumeric: "tabular-nums",
-                                            fontFamily: font,
-                                            marginBottom: 16,
-                                        }}
-                                    >
+                                {/* Section B — Annual gain */}
+                                <div style={{ textAlign: "center", padding: isMobile ? "32px 0" : "44px 0", borderBottom: "1px solid #F0F0F0" }}>
+                                    <div style={{ fontSize: 13, color: "rgba(28,28,28,0.4)", marginBottom: 12 }}>Gain potentiel annuel avec Recept AI</div>
+                                    <div style={{
+                                        fontSize: isMobile ? 48 : 64,
+                                        fontWeight: 600,
+                                        color: primaryColor,
+                                        letterSpacing: "-0.04em",
+                                        lineHeight: 1,
+                                        fontVariantNumeric: "tabular-nums",
+                                        fontFamily: font,
+                                        marginBottom: 14,
+                                    }}>
                                         {formatFR(displayAnnualGain)} €
                                     </div>
-                                    <div
-                                        style={{
-                                            fontSize: 14,
-                                            color: "rgba(28,28,28,0.5)",
-                                            lineHeight: 1.5,
-                                            marginBottom: 8,
-                                        }}
-                                    >
+                                    <div style={{ fontSize: 14, color: "rgba(28,28,28,0.4)", lineHeight: 1.6 }}>
                                         de chiffre d'affaires récupérable chaque année grâce à Recept AI.
-                                    </div>
-                                    <div
-                                        style={{
-                                            fontSize: 14,
-                                            color: "rgba(28,28,28,0.5)",
-                                            lineHeight: 1.5,
-                                        }}
-                                    >
-                                        Soit{" "}
-                                        <strong style={{ color: "rgba(28,28,28,0.7)" }}>
-                                            {formatFR(patientsAnnual)} patients
-                                        </strong>{" "}
-                                        supplémentaires pour votre cabinet.
+                                        <br />
+                                        Soit <strong style={{ color: "rgba(28,28,28,0.6)" }}>{formatFR(patientsAnnual)} patients</strong> supplémentaires pour votre cabinet.
                                     </div>
                                 </div>
 
-                                {/* Section C — Comparison card */}
+                                {/* Section C — Comparison */}
                                 <div
                                     style={{
-                                        background: "#1B1F3B",
-                                        borderRadius: 20,
-                                        padding: 36,
-                                        marginTop: 20,
                                         display: "flex",
                                         flexDirection: isMobile ? "column" : "row",
                                         justifyContent: "space-around",
                                         alignItems: "center",
-                                        gap: isMobile ? 24 : 0,
+                                        padding: isMobile ? "28px 0" : "36px 0",
+                                        gap: isMobile ? 20 : 0,
                                     }}
                                 >
                                     {/* Left: Recept cost */}
                                     <div style={{ textAlign: "center" }}>
-                                        <div
-                                            style={{
-                                                fontSize: 11,
-                                                textTransform: "uppercase" as const,
-                                                letterSpacing: "0.08em",
-                                                color: "rgba(255,255,255,0.5)",
-                                                marginBottom: 8,
-                                                fontFamily: font,
-                                            }}
-                                        >
-                                            RECEPT AI COÛTE
+                                        <div style={{ fontSize: 11, textTransform: "uppercase" as const, letterSpacing: "0.08em", color: "rgba(28,28,28,0.35)", marginBottom: 8, fontFamily: font }}>
+                                            Recept AI coûte
                                         </div>
-                                        <div
-                                            style={{
-                                                fontSize: 40,
-                                                fontWeight: 700,
-                                                color: "#10B981",
-                                                letterSpacing: "-0.03em",
-                                                lineHeight: 1,
-                                                fontFamily: font,
-                                                marginBottom: 6,
-                                            }}
-                                        >
+                                        <div style={{ fontSize: 36, fontWeight: 600, color: primaryColor, letterSpacing: "-0.03em", lineHeight: 1, fontFamily: font, marginBottom: 4 }}>
                                             {receptCost} €
                                         </div>
-                                        <div
-                                            style={{
-                                                fontSize: 13,
-                                                color: "rgba(255,255,255,0.4)",
-                                            }}
-                                        >
-                                            {receptCostLabel}
-                                        </div>
+                                        <div style={{ fontSize: 13, color: "rgba(28,28,28,0.3)" }}>{receptCostLabel}</div>
                                     </div>
 
                                     {/* Center: VS */}
-                                    <div
-                                        style={{
-                                            width: 40,
-                                            height: 40,
-                                            border: "1px solid rgba(255,255,255,0.15)",
-                                            borderRadius: "50%",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            fontSize: 13,
-                                            color: "rgba(255,255,255,0.4)",
-                                            flexShrink: 0,
-                                            fontFamily: font,
-                                        }}
-                                    >
-                                        VS
-                                    </div>
+                                    <div style={{ fontSize: 12, color: "rgba(28,28,28,0.2)", fontWeight: 500, fontFamily: font }}>vs</div>
 
                                     {/* Right: Monthly loss */}
                                     <div style={{ textAlign: "center" }}>
-                                        <div
-                                            style={{
-                                                fontSize: 11,
-                                                textTransform: "uppercase" as const,
-                                                letterSpacing: "0.08em",
-                                                color: "rgba(255,255,255,0.5)",
-                                                marginBottom: 8,
-                                                fontFamily: font,
-                                            }}
-                                        >
-                                            VOUS PERDEZ
+                                        <div style={{ fontSize: 11, textTransform: "uppercase" as const, letterSpacing: "0.08em", color: "rgba(28,28,28,0.35)", marginBottom: 8, fontFamily: font }}>
+                                            Vous perdez
                                         </div>
-                                        <div
-                                            style={{
-                                                fontSize: 40,
-                                                fontWeight: 700,
-                                                color: "#FF3A3A",
-                                                letterSpacing: "-0.03em",
-                                                lineHeight: 1,
-                                                fontFamily: font,
-                                                marginBottom: 6,
-                                            }}
-                                        >
+                                        <div style={{ fontSize: 36, fontWeight: 600, color: "#1B1B1B", letterSpacing: "-0.03em", lineHeight: 1, fontFamily: font, marginBottom: 4 }}>
                                             {formatFR(lostRevenueMonth)} €
                                         </div>
-                                        <div
-                                            style={{
-                                                fontSize: 13,
-                                                color: "rgba(255,255,255,0.4)",
-                                            }}
-                                        >
-                                            par mois
-                                        </div>
+                                        <div style={{ fontSize: 13, color: "rgba(28,28,28,0.3)" }}>par mois</div>
                                     </div>
                                 </div>
 
