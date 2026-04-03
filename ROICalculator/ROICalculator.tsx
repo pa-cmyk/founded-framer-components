@@ -40,6 +40,9 @@ type Props = {
     showCta: boolean
     ctaText: string
     ctaLink: string
+    receptCost: number
+    receptCostLabel: string
+    ctaResultText: string
 
     // Default values
     defaultCalls: number
@@ -192,6 +195,69 @@ function MarkerDot({ label }: { label: string }) {
             >
                 {label}
             </div>
+        </div>
+    )
+}
+
+// Result CTA button (opens ctaLink)
+function ResultCtaButton({
+    text,
+    href,
+    primaryColor,
+    primaryShadow,
+    font,
+    isMobile,
+}: {
+    text: string
+    href: string
+    primaryColor: string
+    primaryShadow: string
+    font: string
+    isMobile: boolean
+}) {
+    const [hovered, setHovered] = useState(false)
+    return (
+        <div style={{ display: "flex", justifyContent: "center", marginTop: 28 }}>
+            <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+                style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    padding: isMobile ? "14px 28px" : "16px 32px",
+                    background: primaryColor,
+                    color: "#FCFCFC",
+                    border: "none",
+                    borderRadius: 120,
+                    fontFamily: font,
+                    fontSize: isMobile ? 14 : 15,
+                    fontWeight: 500,
+                    cursor: "pointer",
+                    textDecoration: "none",
+                    boxShadow: hovered
+                        ? `0 4px 8px ${primaryShadow}, 0 14px 20px rgba(0,0,0,0.08)`
+                        : "0 0.6px 0.6px rgba(0,0,0,0.25), 0 2.3px 2.3px rgba(0,0,0,0.18), 0 10px 10px rgba(0,0,0,0.08)",
+                    transform: hovered ? "translateY(-1px)" : "translateY(0)",
+                    transition: "all 0.2s",
+                    outline: "none",
+                }}
+            >
+                {text}
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </a>
         </div>
     )
 }
@@ -360,6 +426,9 @@ export function ROICalculator({
     showCta,
     ctaText,
     ctaLink,
+    receptCost,
+    receptCostLabel,
+    ctaResultText,
     defaultCalls,
     defaultBasket,
     defaultMissedRate,
@@ -386,11 +455,17 @@ export function ROICalculator({
     const [missedRate, setMissedRate] = useState(defaultMissedRate)
     const [rdvRate, setRdvRate] = useState(defaultRdvRate)
 
+    // Show results after CTA click
+    const [showResults, setShowResults] = useState(false)
+
     // Displayed result (animated)
     const [displayResult, setDisplayResult] = useState(() =>
         Math.round(defaultCalls * (defaultMissedRate / 100) * (defaultRdvRate / 100) * defaultBasket * workDays)
     )
     const [isAnimating, setIsAnimating] = useState(false)
+
+    // Animated annual gain for results section
+    const [displayAnnualGain, setDisplayAnnualGain] = useState(0)
 
     // Bump animation state for steppers
     const [callsBump, setCallsBump] = useState<"up" | "down" | null>(null)
@@ -450,7 +525,35 @@ export function ROICalculator({
         const newResult = calcGain(calls, missedRate, rdvRate, basket)
         animateCount(prevResultRef.current, newResult)
         prevResultRef.current = newResult
+        // Reset results panel when inputs change
+        setShowResults(false)
     }, [calls, missedRate, rdvRate, basket, calcGain, animateCount])
+
+    // Animate annual gain when results panel opens
+    const prevAnnualGainRef = useRef(0)
+    useEffect(() => {
+        if (!showResults) {
+            prevAnnualGainRef.current = 0
+            setDisplayAnnualGain(0)
+            return
+        }
+        const missedCallsMonth = Math.round(calls * (missedRate / 100) * workDays)
+        const lostPatientsMonth = Math.round(missedCallsMonth * (rdvRate / 100))
+        const lostRevenueMonth = Math.round(lostPatientsMonth * basket)
+        const gainAnnual = lostRevenueMonth * 12
+        const from = prevAnnualGainRef.current
+        const to = gainAnnual
+        const duration = 700
+        const start = performance.now()
+        const tick = (now: number) => {
+            const t = Math.min((now - start) / duration, 1)
+            const eased = 1 - Math.pow(1 - t, 3)
+            setDisplayAnnualGain(Math.round(from + (to - from) * eased))
+            if (t < 1) requestAnimationFrame(tick)
+            else prevAnnualGainRef.current = to
+        }
+        requestAnimationFrame(tick)
+    }, [showResults, calls, missedRate, rdvRate, basket, workDays])
 
     // ── Stepper handlers ──
     const handleStepCalls = (delta: number) => {
@@ -475,8 +578,6 @@ export function ROICalculator({
         : "rgba(48,103,255,0.3)"
 
     const numberFontSize = isMobile ? 36 : 44
-    const resultFontSize = isMobile ? 52 : 72
-    const resultCurrencySize = isMobile ? 26 : 36
 
     // ── Param row layout ──
     const paramRowStyle: React.CSSProperties = isMobile
@@ -897,82 +998,17 @@ export function ROICalculator({
                         </div>
                     </div>
 
-                    {/* ── Result ── */}
-                    <div
-                        style={{
-                            textAlign: "center",
-                            paddingTop: isMobile ? 28 : 40,
-                        }}
-                    >
-                        <div
-                            style={{
-                                fontSize: 14,
-                                color: "rgba(28,28,28,0.45)",
-                                marginBottom: 14,
-                            }}
-                        >
-                            {resultLabel}
-                        </div>
-                        <div
-                            style={{
-                                display: "flex",
-                                alignItems: "baseline",
-                                justifyContent: "center",
-                                gap: 8,
-                            }}
-                        >
-                            <span
-                                style={{
-                                    fontSize: resultFontSize,
-                                    fontWeight: 600,
-                                    color: primaryColor,
-                                    letterSpacing: "-0.04em",
-                                    lineHeight: 1,
-                                    fontVariantNumeric: "tabular-nums",
-                                    transform: isAnimating
-                                        ? "scale(1.02)"
-                                        : "scale(1)",
-                                    transition:
-                                        "transform 0.2s ease-out",
-                                    display: "inline-block",
-                                }}
-                            >
-                                {formatFR(displayResult)}
-                            </span>
-                            <span
-                                style={{
-                                    fontSize: resultCurrencySize,
-                                    fontWeight: 500,
-                                    color: colorWithOpacity(primaryColor, 0.35),
-                                }}
-                            >
-                                €
-                            </span>
-                        </div>
-                        <div
-                            style={{
-                                fontSize: 13,
-                                color: "rgba(28,28,28,0.22)",
-                                marginTop: 10,
-                            }}
-                        >
-                            {resultNote}
-                        </div>
-                    </div>
-
                     {/* ── CTA ── */}
-                    {showCta && (
+                    {showCta && !showResults && (
                         <div
                             style={{
                                 display: "flex",
                                 justifyContent: "center",
-                                marginTop: 28,
+                                marginTop: isMobile ? 28 : 40,
                             }}
                         >
                             <button
-                                onClick={() => {
-                                    if (ctaLink) window.open(ctaLink, "_blank")
-                                }}
+                                onClick={() => setShowResults(true)}
                                 onMouseEnter={() => setCtaHovered(true)}
                                 onMouseLeave={() => setCtaHovered(false)}
                                 style={{
@@ -1001,6 +1037,7 @@ export function ROICalculator({
                                     outline: "none",
                                 }}
                             >
+                                {ctaText}
                                 <svg
                                     width="16"
                                     height="16"
@@ -1011,10 +1048,306 @@ export function ROICalculator({
                                 >
                                     <path d="M5 12h14M12 5l7 7-7 7" />
                                 </svg>
-                                {ctaText}
                             </button>
                         </div>
                     )}
+
+                    {/* ── Results Panel ── */}
+                    {showResults && (() => {
+                        const missedCallsMonth = Math.round(calls * (missedRate / 100) * workDays)
+                        const lostPatientsMonth = Math.round(missedCallsMonth * (rdvRate / 100))
+                        const lostRevenueMonth = Math.round(lostPatientsMonth * basket)
+                        const gainAnnual = lostRevenueMonth * 12
+                        const patientsAnnual = lostPatientsMonth * 12
+
+                        const statCardBase: React.CSSProperties = {
+                            background: "#F8F8F8",
+                            border: "1px solid #F0F0F0",
+                            borderRadius: 16,
+                            padding: "28px 20px",
+                            textAlign: "center",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            gap: 6,
+                        }
+
+                        return (
+                            <div style={{ marginTop: isMobile ? 28 : 40 }}>
+                                {/* Section A — 3 stat cards */}
+                                <div
+                                    style={{
+                                        display: "grid",
+                                        gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr",
+                                        gap: 12,
+                                    }}
+                                >
+                                    {/* Card 1: missed calls */}
+                                    <div style={statCardBase}>
+                                        <div style={{ fontSize: 32, lineHeight: 1 }}>📵</div>
+                                        <div
+                                            style={{
+                                                fontSize: 36,
+                                                fontWeight: 700,
+                                                color: "#1B1B1B",
+                                                letterSpacing: "-0.03em",
+                                                lineHeight: 1.1,
+                                                fontFamily: font,
+                                            }}
+                                        >
+                                            {formatFR(missedCallsMonth)}
+                                        </div>
+                                        <div
+                                            style={{
+                                                fontSize: 13,
+                                                color: "rgba(28,28,28,0.55)",
+                                                lineHeight: 1.4,
+                                            }}
+                                        >
+                                            appels manqués / mois
+                                        </div>
+                                    </div>
+
+                                    {/* Card 2: lost patients */}
+                                    <div style={statCardBase}>
+                                        <div style={{ fontSize: 32, lineHeight: 1 }}>👤</div>
+                                        <div
+                                            style={{
+                                                fontSize: 36,
+                                                fontWeight: 700,
+                                                color: "#1B1B1B",
+                                                letterSpacing: "-0.03em",
+                                                lineHeight: 1.1,
+                                                fontFamily: font,
+                                            }}
+                                        >
+                                            {formatFR(lostPatientsMonth)}
+                                        </div>
+                                        <div
+                                            style={{
+                                                fontSize: 13,
+                                                color: "rgba(28,28,28,0.55)",
+                                                lineHeight: 1.4,
+                                            }}
+                                        >
+                                            patients potentiels perdus / mois
+                                        </div>
+                                    </div>
+
+                                    {/* Card 3: lost revenue */}
+                                    <div
+                                        style={{
+                                            ...statCardBase,
+                                            background: "rgba(255,58,58,0.06)",
+                                            border: "1px solid rgba(255,58,58,0.1)",
+                                        }}
+                                    >
+                                        <div style={{ fontSize: 32, lineHeight: 1 }}>💸</div>
+                                        <div
+                                            style={{
+                                                fontSize: 36,
+                                                fontWeight: 700,
+                                                color: "#FF3A3A",
+                                                letterSpacing: "-0.03em",
+                                                lineHeight: 1.1,
+                                                fontFamily: font,
+                                            }}
+                                        >
+                                            {formatFR(lostRevenueMonth)} €
+                                        </div>
+                                        <div
+                                            style={{
+                                                fontSize: 13,
+                                                color: "rgba(28,28,28,0.55)",
+                                                lineHeight: 1.4,
+                                            }}
+                                        >
+                                            manque à gagner / mois
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Section B — Annual gain card */}
+                                <div
+                                    style={{
+                                        background: "rgba(16,185,129,0.06)",
+                                        border: "1px solid rgba(16,185,129,0.15)",
+                                        borderRadius: 20,
+                                        padding: 40,
+                                        textAlign: "center",
+                                        marginTop: 20,
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            fontSize: 16,
+                                            fontWeight: 600,
+                                            color: "#1B1B1B",
+                                            marginBottom: 12,
+                                            fontFamily: font,
+                                        }}
+                                    >
+                                        Gain potentiel annuel avec Recept AI
+                                    </div>
+                                    <div
+                                        style={{
+                                            fontSize: isMobile ? 40 : 56,
+                                            fontWeight: 700,
+                                            color: "#10B981",
+                                            letterSpacing: "-0.04em",
+                                            lineHeight: 1,
+                                            fontVariantNumeric: "tabular-nums",
+                                            fontFamily: font,
+                                            marginBottom: 16,
+                                        }}
+                                    >
+                                        {formatFR(displayAnnualGain)} €
+                                    </div>
+                                    <div
+                                        style={{
+                                            fontSize: 14,
+                                            color: "rgba(28,28,28,0.5)",
+                                            lineHeight: 1.5,
+                                            marginBottom: 8,
+                                        }}
+                                    >
+                                        de chiffre d'affaires récupérable chaque année grâce à Recept AI.
+                                    </div>
+                                    <div
+                                        style={{
+                                            fontSize: 14,
+                                            color: "rgba(28,28,28,0.5)",
+                                            lineHeight: 1.5,
+                                        }}
+                                    >
+                                        Soit{" "}
+                                        <strong style={{ color: "rgba(28,28,28,0.7)" }}>
+                                            {formatFR(patientsAnnual)} patients
+                                        </strong>{" "}
+                                        supplémentaires pour votre cabinet.
+                                    </div>
+                                </div>
+
+                                {/* Section C — Comparison card */}
+                                <div
+                                    style={{
+                                        background: "#1B1F3B",
+                                        borderRadius: 20,
+                                        padding: 36,
+                                        marginTop: 20,
+                                        display: "flex",
+                                        flexDirection: isMobile ? "column" : "row",
+                                        justifyContent: "space-around",
+                                        alignItems: "center",
+                                        gap: isMobile ? 24 : 0,
+                                    }}
+                                >
+                                    {/* Left: Recept cost */}
+                                    <div style={{ textAlign: "center" }}>
+                                        <div
+                                            style={{
+                                                fontSize: 11,
+                                                textTransform: "uppercase" as const,
+                                                letterSpacing: "0.08em",
+                                                color: "rgba(255,255,255,0.5)",
+                                                marginBottom: 8,
+                                                fontFamily: font,
+                                            }}
+                                        >
+                                            RECEPT AI COÛTE
+                                        </div>
+                                        <div
+                                            style={{
+                                                fontSize: 40,
+                                                fontWeight: 700,
+                                                color: "#10B981",
+                                                letterSpacing: "-0.03em",
+                                                lineHeight: 1,
+                                                fontFamily: font,
+                                                marginBottom: 6,
+                                            }}
+                                        >
+                                            {receptCost} €
+                                        </div>
+                                        <div
+                                            style={{
+                                                fontSize: 13,
+                                                color: "rgba(255,255,255,0.4)",
+                                            }}
+                                        >
+                                            {receptCostLabel}
+                                        </div>
+                                    </div>
+
+                                    {/* Center: VS */}
+                                    <div
+                                        style={{
+                                            width: 40,
+                                            height: 40,
+                                            border: "1px solid rgba(255,255,255,0.15)",
+                                            borderRadius: "50%",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            fontSize: 13,
+                                            color: "rgba(255,255,255,0.4)",
+                                            flexShrink: 0,
+                                            fontFamily: font,
+                                        }}
+                                    >
+                                        VS
+                                    </div>
+
+                                    {/* Right: Monthly loss */}
+                                    <div style={{ textAlign: "center" }}>
+                                        <div
+                                            style={{
+                                                fontSize: 11,
+                                                textTransform: "uppercase" as const,
+                                                letterSpacing: "0.08em",
+                                                color: "rgba(255,255,255,0.5)",
+                                                marginBottom: 8,
+                                                fontFamily: font,
+                                            }}
+                                        >
+                                            VOUS PERDEZ
+                                        </div>
+                                        <div
+                                            style={{
+                                                fontSize: 40,
+                                                fontWeight: 700,
+                                                color: "#FF3A3A",
+                                                letterSpacing: "-0.03em",
+                                                lineHeight: 1,
+                                                fontFamily: font,
+                                                marginBottom: 6,
+                                            }}
+                                        >
+                                            {formatFR(lostRevenueMonth)} €
+                                        </div>
+                                        <div
+                                            style={{
+                                                fontSize: 13,
+                                                color: "rgba(255,255,255,0.4)",
+                                            }}
+                                        >
+                                            par mois
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Section D — Final CTA */}
+                                <ResultCtaButton
+                                    text={ctaResultText}
+                                    href={ctaLink}
+                                    primaryColor={primaryColor}
+                                    primaryShadow={primaryShadow}
+                                    font={font}
+                                    isMobile={isMobile}
+                                />
+                            </div>
+                        )
+                    })()}
                 </div>
             </div>
         </div>
@@ -1048,8 +1381,11 @@ ROICalculator.defaultProps = {
     resultNote: "Basé sur 22 jours ouvrés par mois",
 
     showCta: true,
-    ctaText: "Je teste Recept",
+    ctaText: "Calculer mon gain potentiel",
     ctaLink: "https://rcpt.ai",
+    receptCost: 100,
+    receptCostLabel: "par praticien",
+    ctaResultText: "Découvrir Recept",
 
     defaultCalls: 20,
     defaultBasket: 35,
@@ -1191,7 +1527,7 @@ addPropertyControls(ROICalculator, {
     ctaText: {
         title: "Texte CTA",
         type: ControlType.String,
-        defaultValue: "Je teste Recept",
+        defaultValue: "Calculer mon gain potentiel",
         hidden(props) {
             return !props.showCta
         },
@@ -1203,6 +1539,24 @@ addPropertyControls(ROICalculator, {
         hidden(props) {
             return !props.showCta
         },
+    },
+    receptCost: {
+        title: "Coût Recept AI €",
+        type: ControlType.Number,
+        defaultValue: 100,
+        min: 0,
+        max: 1000,
+        step: 10,
+    },
+    receptCostLabel: {
+        title: "Label coût Recept",
+        type: ControlType.String,
+        defaultValue: "par praticien",
+    },
+    ctaResultText: {
+        title: "Texte CTA résultats",
+        type: ControlType.String,
+        defaultValue: "Découvrir Recept",
     },
 
     // ── Default values ──
