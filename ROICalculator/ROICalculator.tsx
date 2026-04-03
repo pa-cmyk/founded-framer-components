@@ -26,6 +26,12 @@ type Props = {
     hint3: string
     hint4: string
 
+    // Hint links
+    hintLink1: string
+    hintLink2: string
+    hintLink3: string
+    hintLink4: string
+
     // Result
     resultLabel: string
     resultNote: string
@@ -357,6 +363,10 @@ export function ROICalculator({
     hint2,
     hint3,
     hint4,
+    hintLink1,
+    hintLink2,
+    hintLink3,
+    hintLink4,
     resultLabel,
     resultNote,
     showCta,
@@ -582,6 +592,7 @@ export function ROICalculator({
                                     fontWeight: 500,
                                     color: "rgba(28,28,28,0.55)",
                                     marginBottom: 20,
+                                    textAlign: isMobile ? "center" as const : undefined,
                                 }}
                             >
                                 {label1}
@@ -590,7 +601,7 @@ export function ROICalculator({
                                 style={{
                                     display: "flex",
                                     alignItems: "center",
-                                    justifyContent: "flex-start",
+                                    justifyContent: isMobile ? "center" : "flex-start",
                                     gap: 20,
                                 }}
                             >
@@ -639,15 +650,23 @@ export function ROICalculator({
                                     isMobile={isMobile}
                                 />
                             </div>
-                            <div
+                            <a
+                                href={hintLink1}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 style={{
                                     display: "flex",
                                     alignItems: "center",
+                                    justifyContent: isMobile ? "center" : "flex-start",
                                     gap: 5,
                                     marginTop: 12,
                                     fontSize: 11,
                                     color: "rgba(28,28,28,0.2)",
+                                    textDecoration: "none",
+                                    cursor: "pointer",
                                 }}
+                                onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.45)"; e.currentTarget.style.textDecoration = "underline" }}
+                                onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.2)"; e.currentTarget.style.textDecoration = "none" }}
                             >
                                 <div
                                     style={{
@@ -659,7 +678,7 @@ export function ROICalculator({
                                     }}
                                 />
                                 {hint1}
-                            </div>
+                            </a>
                         </div>
 
                         {/* Cell 2: Missed rate slider */}
@@ -670,6 +689,7 @@ export function ROICalculator({
                                     fontWeight: 500,
                                     color: "rgba(28,28,28,0.55)",
                                     marginBottom: 20,
+                                    textAlign: isMobile ? "center" as const : undefined,
                                 }}
                             >
                                 {label2}
@@ -684,6 +704,35 @@ export function ROICalculator({
                                 defaultValue={defaultMissedRate}
                                 markerLabel={hint2}
                             />
+                            <a
+                                href={hintLink2}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: isMobile ? "center" : "flex-start",
+                                    gap: 5,
+                                    marginTop: 12,
+                                    fontSize: 11,
+                                    color: "rgba(28,28,28,0.2)",
+                                    textDecoration: "none",
+                                    cursor: "pointer",
+                                }}
+                                onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.45)"; e.currentTarget.style.textDecoration = "underline" }}
+                                onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.2)"; e.currentTarget.style.textDecoration = "none" }}
+                            >
+                                <div
+                                    style={{
+                                        width: 4,
+                                        height: 4,
+                                        background: "rgba(28,28,28,0.1)",
+                                        borderRadius: "50%",
+                                        flexShrink: 0,
+                                    }}
+                                />
+                                {hint2}
+                            </a>
                         </div>
                     </div>
 
@@ -707,6 +756,7 @@ export function ROICalculator({
                                     fontWeight: 500,
                                     color: "rgba(28,28,28,0.55)",
                                     marginBottom: 20,
+                                    textAlign: isMobile ? "center" as const : undefined,
                                 }}
                             >
                                 {label3}
@@ -715,7 +765,7 @@ export function ROICalculator({
                                 style={{
                                     display: "flex",
                                     alignItems: "center",
-                                    justifyContent: "flex-start",
+                                    justifyContent: isMobile ? "center" : "flex-start",
                                     gap: 20,
                                 }}
                             >
@@ -773,15 +823,23 @@ export function ROICalculator({
                                     isMobile={isMobile}
                                 />
                             </div>
-                            <div
+                            <a
+                                href={hintLink3}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 style={{
                                     display: "flex",
                                     alignItems: "center",
+                                    justifyContent: isMobile ? "center" : "flex-start",
                                     gap: 5,
                                     marginTop: 12,
                                     fontSize: 11,
                                     color: "rgba(28,28,28,0.2)",
+                                    textDecoration: "none",
+                                    cursor: "pointer",
                                 }}
+                                onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.45)"; e.currentTarget.style.textDecoration = "underline" }}
+                                onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.2)"; e.currentTarget.style.textDecoration = "none" }}
                             >
                                 <div
                                     style={{
@@ -793,7 +851,7 @@ export function ROICalculator({
                                     }}
                                 />
                                 {hint3}
-                            </div>
+                            </a>
                         </div>
 
                         {/* Cell 4: RDV rate slider */}
@@ -804,6 +862,7 @@ export function ROICalculator({
                                     fontWeight: 500,
                                     color: "rgba(28,28,28,0.55)",
                                     marginBottom: 20,
+                                    textAlign: isMobile ? "center" as const : undefined,
                                 }}
                             >
                                 {label4}
@@ -818,6 +877,35 @@ export function ROICalculator({
                                 defaultValue={defaultRdvRate}
                                 markerLabel={hint4}
                             />
+                            <a
+                                href={hintLink4}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: isMobile ? "center" : "flex-start",
+                                    gap: 5,
+                                    marginTop: 12,
+                                    fontSize: 11,
+                                    color: "rgba(28,28,28,0.2)",
+                                    textDecoration: "none",
+                                    cursor: "pointer",
+                                }}
+                                onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.45)"; e.currentTarget.style.textDecoration = "underline" }}
+                                onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.2)"; e.currentTarget.style.textDecoration = "none" }}
+                            >
+                                <div
+                                    style={{
+                                        width: 4,
+                                        height: 4,
+                                        background: "rgba(28,28,28,0.1)",
+                                        borderRadius: "50%",
+                                        flexShrink: 0,
+                                    }}
+                                />
+                                {hint4}
+                            </a>
                         </div>
                     </div>
 
@@ -958,10 +1046,15 @@ ROICalculator.defaultProps = {
     label3: "Panier moyen d'un nouveau patient",
     label4: "Part des appels concernant une prise de RDV",
 
-    hint1: "Moy. secteur : 15 appels/jour",
-    hint2: "Moy. observée : 30%",
-    hint3: "Moy. France : 23-45€/visite",
-    hint4: "Donnée Recept AI : 45%",
+    hint1: "15 appels/jour/praticien*",
+    hint2: "30% d'appels manqués en cabinet dentaire*",
+    hint3: "Entre 23€ et 45€ par visite*",
+    hint4: "45% des appels sont liés à un rendez-vous*",
+
+    hintLink1: "https://rcpt.ai/",
+    hintLink2: "https://media.doctolib.com/image/upload/mkg/file/cp_rdv_non_honores.pdf",
+    hintLink3: "https://www.verspieren.com/fr/entreprise/article/adp/analyse-depenses-de-sante-en-france-rapport-2025",
+    hintLink4: "https://rcpt.ai/",
 
     resultLabel: "Votre gain potentiel mensuel",
     resultNote: "Basé sur 22 jours ouvrés par mois",
@@ -1051,22 +1144,42 @@ addPropertyControls(ROICalculator, {
     hint1: {
         title: "Hint appels/jour",
         type: ControlType.String,
-        defaultValue: "Moy. secteur : 15 appels/jour",
+        defaultValue: "15 appels/jour/praticien*",
     },
     hint2: {
-        title: "Hint taux manqués (marqueur)",
+        title: "Hint taux manqués",
         type: ControlType.String,
-        defaultValue: "Moy. observée : 30%",
+        defaultValue: "30% d'appels manqués en cabinet dentaire*",
     },
     hint3: {
         title: "Hint panier moyen",
         type: ControlType.String,
-        defaultValue: "Moy. France : 23-45€/visite",
+        defaultValue: "Entre 23€ et 45€ par visite*",
     },
     hint4: {
-        title: "Hint part RDV (marqueur)",
+        title: "Hint part RDV",
         type: ControlType.String,
-        defaultValue: "Donnée Recept AI : 45%",
+        defaultValue: "45% des appels sont liés à un rendez-vous*",
+    },
+    hintLink1: {
+        title: "Lien source appels",
+        type: ControlType.String,
+        defaultValue: "https://rcpt.ai/",
+    },
+    hintLink2: {
+        title: "Lien source taux manqués",
+        type: ControlType.String,
+        defaultValue: "https://media.doctolib.com/image/upload/mkg/file/cp_rdv_non_honores.pdf",
+    },
+    hintLink3: {
+        title: "Lien source panier",
+        type: ControlType.String,
+        defaultValue: "https://www.verspieren.com/fr/entreprise/article/adp/analyse-depenses-de-sante-en-france-rapport-2025",
+    },
+    hintLink4: {
+        title: "Lien source part RDV",
+        type: ControlType.String,
+        defaultValue: "https://rcpt.ai/",
     },
 
     // ── Result ──
