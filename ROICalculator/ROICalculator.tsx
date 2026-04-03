@@ -410,7 +410,7 @@ export function ROICalculator({
         if (!containerRef.current) return
         const ro = new ResizeObserver((entries) => {
             for (const entry of entries) {
-                setIsMobile(entry.contentRect.width <= 500)
+                setIsMobile(entry.contentRect.width <= 680)
             }
         })
         ro.observe(containerRef.current)
@@ -458,7 +458,7 @@ export function ROICalculator({
     const handleStepCalls = (delta: number) => {
         setCalls((prev) => Math.min(maxCalls, Math.max(minCalls, prev + delta)))
         setCallsBump(delta > 0 ? "up" : "down")
-        setTimeout(() => setCallsBump(null), 100)
+        setTimeout(() => setCallsBump(null), 80)
     }
 
     const handleStepBasket = (delta: number) => {
@@ -466,7 +466,7 @@ export function ROICalculator({
             Math.min(maxBasket, Math.max(minBasket, prev + delta))
         )
         setBasketBump(delta > 0 ? "up" : "down")
-        setTimeout(() => setBasketBump(null), 100)
+        setTimeout(() => setBasketBump(null), 80)
     }
 
     // ── Derived styles ──
