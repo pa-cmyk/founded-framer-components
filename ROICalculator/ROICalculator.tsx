@@ -297,18 +297,6 @@ function PillSlider({
                     }}
                 />
 
-                {/* Marker dot at default position */}
-                <div
-                    style={{
-                        position: "absolute",
-                        top: "50%",
-                        left: `${defaultPct}%`,
-                        transform: "translate(-50%, -50%)",
-                        zIndex: 1,
-                    }}
-                >
-                    <MarkerDot label={markerLabel} />
-                </div>
             </div>
 
             {/* Floating pill thumb */}
