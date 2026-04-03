@@ -127,16 +127,12 @@ function StepperBtn({
                 height: size,
                 borderRadius: "50%",
                 border: `1.5px solid ${hovered ? primaryColor : "#E8E8E8"}`,
-                background: hovered
-                    ? colorWithOpacity(primaryColor, 0.04)
-                    : "transparent",
+                background: "transparent",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 fontSize,
-                color: hovered
-                    ? primaryColor
-                    : "rgba(28,28,28,0.25)",
+                color: "rgba(28,28,28,0.25)",
                 cursor: "pointer",
                 transition: "all 0.15s",
                 flexShrink: 0,
@@ -525,8 +521,9 @@ export function ROICalculator({
         const newResult = calcGain(calls, missedRate, rdvRate, basket)
         animateCount(prevResultRef.current, newResult)
         prevResultRef.current = newResult
-        // Reset results panel when inputs change
+        // Reset results panel and hover state when inputs change
         setShowResults(false)
+        setCtaHovered(false)
     }, [calls, missedRate, rdvRate, basket, calcGain, animateCount])
 
     // Animate annual gain when results panel opens
@@ -1028,8 +1025,8 @@ export function ROICalculator({
                                     fontWeight: 500,
                                     cursor: "pointer",
                                     boxShadow: ctaHovered
-                                        ? `0 4px 8px ${primaryShadow}, 0 14px 20px ${colorWithOpacity(primaryColor, 0.12)}`
-                                        : "0 0.6px 0.6px rgba(0,0,0,0.25), 0 2.3px 2.3px rgba(0,0,0,0.18), 0 10px 10px rgba(0,0,0,0.08)",
+                                        ? `0 2px 6px ${colorWithOpacity(primaryColor, 0.2)}`
+                                        : "0 1px 3px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.04)",
                                     transform: ctaHovered
                                         ? "translateY(-1px)"
                                         : "translateY(0)",
@@ -1133,6 +1130,9 @@ export function ROICalculator({
                                         </div>
                                         <div style={{ fontSize: 13, color: "rgba(28,28,28,0.3)" }}>{receptCostLabel}</div>
                                     </div>
+
+                                    {/* VS */}
+                                    <div style={{ fontSize: 12, color: "rgba(28,28,28,0.18)", fontWeight: 500, fontFamily: font, textAlign: "center", padding: isMobile ? "0" : "0 4px", flexShrink: 0 }}>vs</div>
 
                                     {/* Right: Monthly loss — red tint */}
                                     <div style={{ flex: 1, background: "rgba(255,58,58,0.05)", borderRadius: 16, padding: "24px 20px", textAlign: "center" }}>
