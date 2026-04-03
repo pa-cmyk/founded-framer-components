@@ -1120,19 +1120,19 @@ export function ROICalculator({
                                         marginTop: 12,
                                     }}
                                 >
-                                    {/* Left: Recept cost */}
-                                    <div style={{ flex: 1, background: "#F6F6F6", borderRadius: 16, padding: "24px 20px", textAlign: "center" }}>
-                                        <div style={{ fontSize: 11, textTransform: "uppercase" as const, letterSpacing: "0.08em", color: "rgba(28,28,28,0.35)", marginBottom: 8, fontFamily: font }}>
+                                    {/* Left: Recept cost — green tint */}
+                                    <div style={{ flex: 1, background: "rgba(16,185,129,0.05)", borderRadius: 16, padding: "24px 20px", textAlign: "center" }}>
+                                        <div style={{ fontSize: 11, textTransform: "uppercase" as const, letterSpacing: "0.08em", color: "rgba(16,185,129,0.55)", marginBottom: 8, fontFamily: font }}>
                                             Recept AI coûte
                                         </div>
-                                        <div style={{ fontSize: 32, fontWeight: 600, color: primaryColor, letterSpacing: "-0.03em", lineHeight: 1, fontFamily: font, marginBottom: 4 }}>
+                                        <div style={{ fontSize: 32, fontWeight: 600, color: "#10B981", letterSpacing: "-0.03em", lineHeight: 1, fontFamily: font, marginBottom: 4 }}>
                                             {receptCost} €
                                         </div>
-                                        <div style={{ fontSize: 13, color: "rgba(28,28,28,0.3)" }}>{receptCostLabel}</div>
+                                        <div style={{ fontSize: 13, color: "rgba(16,185,129,0.5)" }}>{receptCostLabel}</div>
                                     </div>
 
-                                    {/* VS */}
-                                    <div style={{ fontSize: 12, color: "rgba(28,28,28,0.18)", fontWeight: 500, fontFamily: font, textAlign: "center", padding: isMobile ? "0" : "0 4px", flexShrink: 0 }}>vs</div>
+                                    {/* VS — vertically centered */}
+                                    <div style={{ fontSize: 12, color: "rgba(28,28,28,0.18)", fontWeight: 500, fontFamily: font, display: "flex", alignItems: "center", flexShrink: 0 }}>vs</div>
 
                                     {/* Right: Monthly loss — red tint */}
                                     <div style={{ flex: 1, background: "rgba(255,58,58,0.05)", borderRadius: 16, padding: "24px 20px", textAlign: "center" }}>
