@@ -694,23 +694,52 @@ export function ROICalculator({
                 {/* ── Calc card ── */}
                 <div>
                     {/* ROW 1: calls (left) + missed rate slider (right) */}
-                    <div style={{ ...paramRowStyle, ...(isMobile ? { paddingTop: 0 } : { paddingTop: 0 }) }}>
-                        {/* Cell 1: Calls stepper */}
-                        <div style={paramCellStyle}>
+                    {/* Titles row — aligned on same line in desktop */}
+                    {!isMobile && (
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 40px", paddingBottom: 0 }}>
                             <div
                                 style={{
                                     fontSize: 13,
                                     fontWeight: 500,
                                     color: "rgba(28,28,28,0.55)",
-                                    marginBottom: 20,
-                                    textAlign: isMobile ? "center" as const : undefined,
                                     display: "flex",
                                     alignItems: "center",
-                                    justifyContent: isMobile ? "center" : "flex-start",
                                 }}
                             >
                                 <svg width="15" height="15" viewBox="0 0 256 256" fill="rgba(28,28,28,0.55)" style={{ flexShrink: 0, marginRight: 6 }}><path d="M144.27,45.93a8,8,0,0,1,9.8-5.66,86.22,86.22,0,0,1,61.66,61.66,8,8,0,0,1-5.66,9.8A8.23,8.23,0,0,1,208,112a8,8,0,0,1-7.73-5.94,70.35,70.35,0,0,0-50.33-50.33A8,8,0,0,1,144.27,45.93Zm-2.33,41.8c13.79,3.68,22.65,12.54,26.33,26.33A8,8,0,0,0,176,120a8.23,8.23,0,0,0,2.07-.27,8,8,0,0,0,5.66-9.8c-5.12-19.16-18.5-32.54-37.66-37.66a8,8,0,1,0-4.13,15.46Zm81.94,95.35A56.26,56.26,0,0,1,168,232C88.6,232,24,167.4,24,88A56.26,56.26,0,0,1,72.92,32.12a16,16,0,0,1,16.62,9.52l21.12,47.15,0,.12A16,16,0,0,1,109.39,104c-.18.27-.37.52-.57.77L88,129.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,223.88,183.08Zm-15.88-2s-.07,0-.11,0h0l-47-21.05-24.35,20.71a8.44,8.44,0,0,1-.74.56,16,16,0,0,1-15.75,1.14c-18.73-9.05-37.4-27.58-46.46-46.11a16,16,0,0,1,1-15.7,6.13,6.13,0,0,1,.57-.77L96,95.15l-21-47a.61.61,0,0,1,0-.12A40.2,40.2,0,0,0,40,88,128.14,128.14,0,0,0,168,216,40.21,40.21,0,0,0,208,181.07Z"/></svg>{label1}
                             </div>
+                            <div
+                                style={{
+                                    fontSize: 13,
+                                    fontWeight: 500,
+                                    color: "rgba(28,28,28,0.55)",
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <svg width="15" height="15" viewBox="0 0 256 256" fill="rgba(28,28,28,0.55)" style={{ flexShrink: 0, marginRight: 6 }}><path d="M146.34,98.34,164.69,80,146.34,61.66a8,8,0,0,1,11.32-11.32L176,68.69l18.34-18.35a8,8,0,0,1,11.32,11.32L187.32,80l18.34,18.34a8,8,0,0,1-11.32,11.32L176,91.31l-18.34,18.35a8,8,0,0,1-11.32-11.32Zm77.54,84.74A56.26,56.26,0,0,1,168,232C88.6,232,24,167.4,24,88A56.26,56.26,0,0,1,72.92,32.12a16,16,0,0,1,16.62,9.52l21.12,47.15,0,.12A16,16,0,0,1,109.39,104c-.18.27-.37.52-.57.77L88,129.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,223.88,183.08Zm-15.88-2s-.07,0-.11,0h0l-47-21.05-24.35,20.71a8.44,8.44,0,0,1-.74.56,16,16,0,0,1-15.75,1.14c-18.73-9.05-37.4-27.58-46.46-46.11a16,16,0,0,1,1-15.7,6.13,6.13,0,0,1,.57-.77L96,95.15l-21-47a.61.61,0,0,1,0-.12A40.2,40.2,0,0,0,40,88,128.14,128.14,0,0,0,168,216,40.21,40.21,0,0,0,208,181.07Z"/></svg>{label2}
+                            </div>
+                        </div>
+                    )}
+                    <div style={{ ...paramRowStyle, ...(isMobile ? { paddingTop: 0 } : { paddingTop: 16 }) }}>
+                        {/* Cell 1: Calls stepper */}
+                        <div style={paramCellStyle}>
+                            {isMobile && (
+                                <div
+                                    style={{
+                                        fontSize: 13,
+                                        fontWeight: 500,
+                                        color: "rgba(28,28,28,0.55)",
+                                        marginBottom: 20,
+                                        textAlign: "center" as const,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <svg width="15" height="15" viewBox="0 0 256 256" fill="rgba(28,28,28,0.55)" style={{ flexShrink: 0, marginRight: 6 }}><path d="M144.27,45.93a8,8,0,0,1,9.8-5.66,86.22,86.22,0,0,1,61.66,61.66,8,8,0,0,1-5.66,9.8A8.23,8.23,0,0,1,208,112a8,8,0,0,1-7.73-5.94,70.35,70.35,0,0,0-50.33-50.33A8,8,0,0,1,144.27,45.93Zm-2.33,41.8c13.79,3.68,22.65,12.54,26.33,26.33A8,8,0,0,0,176,120a8.23,8.23,0,0,0,2.07-.27,8,8,0,0,0,5.66-9.8c-5.12-19.16-18.5-32.54-37.66-37.66a8,8,0,1,0-4.13,15.46Zm81.94,95.35A56.26,56.26,0,0,1,168,232C88.6,232,24,167.4,24,88A56.26,56.26,0,0,1,72.92,32.12a16,16,0,0,1,16.62,9.52l21.12,47.15,0,.12A16,16,0,0,1,109.39,104c-.18.27-.37.52-.57.77L88,129.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,223.88,183.08Zm-15.88-2s-.07,0-.11,0h0l-47-21.05-24.35,20.71a8.44,8.44,0,0,1-.74.56,16,16,0,0,1-15.75,1.14c-18.73-9.05-37.4-27.58-46.46-46.11a16,16,0,0,1,1-15.7,6.13,6.13,0,0,1,.57-.77L96,95.15l-21-47a.61.61,0,0,1,0-.12A40.2,40.2,0,0,0,40,88,128.14,128.14,0,0,0,168,216,40.21,40.21,0,0,0,208,181.07Z"/></svg>{label1}
+                                </div>
+                            )}
                             <div
                                 style={{
                                     display: "flex",
@@ -775,18 +804,18 @@ export function ROICalculator({
                                     gap: 5,
                                     marginTop: 12,
                                     fontSize: 11,
-                                    color: "rgba(28,28,28,0.2)",
+                                    color: "rgba(28,28,28,0.35)",
                                     textDecoration: "none",
                                     cursor: "pointer",
                                 }}
-                                onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.45)"; e.currentTarget.style.textDecoration = "underline" }}
-                                onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.2)"; e.currentTarget.style.textDecoration = "none" }}
+                                onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.55)"; e.currentTarget.style.textDecoration = "underline" }}
+                                onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.35)"; e.currentTarget.style.textDecoration = "none" }}
                             >
                                 <div
                                     style={{
                                         width: 4,
                                         height: 4,
-                                        background: "rgba(28,28,28,0.1)",
+                                        background: "rgba(28,28,28,0.2)",
                                         borderRadius: "50%",
                                         flexShrink: 0,
                                     }}
@@ -797,20 +826,22 @@ export function ROICalculator({
 
                         {/* Cell 2: Missed rate slider */}
                         <div style={isMobile ? { ...paramCellStyle } : paramCellStyle}>
-                            <div
-                                style={{
-                                    fontSize: 13,
-                                    fontWeight: 500,
-                                    color: "rgba(28,28,28,0.55)",
-                                    marginBottom: 20,
-                                    textAlign: isMobile ? "center" as const : undefined,
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: isMobile ? "center" : "flex-start",
-                                }}
-                            >
-                                <svg width="15" height="15" viewBox="0 0 256 256" fill="rgba(28,28,28,0.55)" style={{ flexShrink: 0, marginRight: 6 }}><path d="M146.34,98.34,164.69,80,146.34,61.66a8,8,0,0,1,11.32-11.32L176,68.69l18.34-18.35a8,8,0,0,1,11.32,11.32L187.32,80l18.34,18.34a8,8,0,0,1-11.32,11.32L176,91.31l-18.34,18.35a8,8,0,0,1-11.32-11.32Zm77.54,84.74A56.26,56.26,0,0,1,168,232C88.6,232,24,167.4,24,88A56.26,56.26,0,0,1,72.92,32.12a16,16,0,0,1,16.62,9.52l21.12,47.15,0,.12A16,16,0,0,1,109.39,104c-.18.27-.37.52-.57.77L88,129.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,223.88,183.08Zm-15.88-2s-.07,0-.11,0h0l-47-21.05-24.35,20.71a8.44,8.44,0,0,1-.74.56,16,16,0,0,1-15.75,1.14c-18.73-9.05-37.4-27.58-46.46-46.11a16,16,0,0,1,1-15.7,6.13,6.13,0,0,1,.57-.77L96,95.15l-21-47a.61.61,0,0,1,0-.12A40.2,40.2,0,0,0,40,88,128.14,128.14,0,0,0,168,216,40.21,40.21,0,0,0,208,181.07Z"/></svg>{label2}
-                            </div>
+                            {isMobile && (
+                                <div
+                                    style={{
+                                        fontSize: 13,
+                                        fontWeight: 500,
+                                        color: "rgba(28,28,28,0.55)",
+                                        marginBottom: 20,
+                                        textAlign: "center" as const,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <svg width="15" height="15" viewBox="0 0 256 256" fill="rgba(28,28,28,0.55)" style={{ flexShrink: 0, marginRight: 6 }}><path d="M146.34,98.34,164.69,80,146.34,61.66a8,8,0,0,1,11.32-11.32L176,68.69l18.34-18.35a8,8,0,0,1,11.32,11.32L187.32,80l18.34,18.34a8,8,0,0,1-11.32,11.32L176,91.31l-18.34,18.35a8,8,0,0,1-11.32-11.32Zm77.54,84.74A56.26,56.26,0,0,1,168,232C88.6,232,24,167.4,24,88A56.26,56.26,0,0,1,72.92,32.12a16,16,0,0,1,16.62,9.52l21.12,47.15,0,.12A16,16,0,0,1,109.39,104c-.18.27-.37.52-.57.77L88,129.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,223.88,183.08Zm-15.88-2s-.07,0-.11,0h0l-47-21.05-24.35,20.71a8.44,8.44,0,0,1-.74.56,16,16,0,0,1-15.75,1.14c-18.73-9.05-37.4-27.58-46.46-46.11a16,16,0,0,1,1-15.7,6.13,6.13,0,0,1,.57-.77L96,95.15l-21-47a.61.61,0,0,1,0-.12A40.2,40.2,0,0,0,40,88,128.14,128.14,0,0,0,168,216,40.21,40.21,0,0,0,208,181.07Z"/></svg>{label2}
+                                </div>
+                            )}
                             <PillSlider
                                 value={missedRate}
                                 min={minMissedRate}
@@ -834,18 +865,18 @@ export function ROICalculator({
                                     gap: 5,
                                     marginTop: 12,
                                     fontSize: 11,
-                                    color: "rgba(28,28,28,0.2)",
+                                    color: "rgba(28,28,28,0.35)",
                                     textDecoration: "none",
                                     cursor: "pointer",
                                 }}
-                                onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.45)"; e.currentTarget.style.textDecoration = "underline" }}
-                                onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.2)"; e.currentTarget.style.textDecoration = "none" }}
+                                onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.55)"; e.currentTarget.style.textDecoration = "underline" }}
+                                onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.35)"; e.currentTarget.style.textDecoration = "none" }}
                             >
                                 <div
                                     style={{
                                         width: 4,
                                         height: 4,
-                                        background: "rgba(28,28,28,0.1)",
+                                        background: "rgba(28,28,28,0.2)",
                                         borderRadius: "50%",
                                         flexShrink: 0,
                                     }}
@@ -857,7 +888,7 @@ export function ROICalculator({
                                     style={{
                                         marginTop: 10,
                                         fontSize: 11,
-                                        color: "rgba(28,28,28,0.35)",
+                                        color: "rgba(28,28,28,0.45)",
                                         lineHeight: 1.5,
                                         textAlign: isMobile ? "center" as const : undefined,
                                         display: "flex",
@@ -866,7 +897,7 @@ export function ROICalculator({
                                         gap: 5,
                                     }}
                                 >
-                                    <svg width="13" height="13" viewBox="0 0 256 256" fill="rgba(28,28,28,0.25)" style={{ flexShrink: 0, marginTop: 1 }}><path d="M176,232a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,232Zm40-128a87.55,87.55,0,0,1-33.64,69.21A16.24,16.24,0,0,0,176,186v6a16,16,0,0,1-16,16H96a16,16,0,0,1-16-16v-6a16,16,0,0,0-6.23-12.66A87.59,87.59,0,0,1,40,104.49C39.74,56.83,78.26,17.14,125.88,16A88,88,0,0,1,216,104Zm-16,0a72,72,0,0,0-73.74-72c-39,.92-70.47,33.39-70.26,72.39a71.65,71.65,0,0,0,27.64,56.3A32,32,0,0,1,96,186v6h64v-6a32.15,32.15,0,0,1,12.47-25.35A71.65,71.65,0,0,0,200,104Z"/></svg>
+                                    <svg width="13" height="13" viewBox="0 0 256 256" fill="rgba(28,28,28,0.35)" style={{ flexShrink: 0, marginTop: 1 }}><path d="M176,232a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,232Zm40-128a87.55,87.55,0,0,1-33.64,69.21A16.24,16.24,0,0,0,176,186v6a16,16,0,0,1-16,16H96a16,16,0,0,1-16-16v-6a16,16,0,0,0-6.23-12.66A87.59,87.59,0,0,1,40,104.49C39.74,56.83,78.26,17.14,125.88,16A88,88,0,0,1,216,104Zm-16,0a72,72,0,0,0-73.74-72c-39,.92-70.47,33.39-70.26,72.39a71.65,71.65,0,0,0,27.64,56.3A32,32,0,0,1,96,186v6h64v-6a32.15,32.15,0,0,1,12.47-25.35A71.65,71.65,0,0,0,200,104Z"/></svg>
                                     <span>{tip2}</span>
                                 </div>
                             )}
@@ -974,18 +1005,18 @@ export function ROICalculator({
                                     gap: 5,
                                     marginTop: 12,
                                     fontSize: 11,
-                                    color: "rgba(28,28,28,0.2)",
+                                    color: "rgba(28,28,28,0.35)",
                                     textDecoration: "none",
                                     cursor: "pointer",
                                 }}
-                                onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.45)"; e.currentTarget.style.textDecoration = "underline" }}
-                                onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.2)"; e.currentTarget.style.textDecoration = "none" }}
+                                onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.55)"; e.currentTarget.style.textDecoration = "underline" }}
+                                onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.35)"; e.currentTarget.style.textDecoration = "none" }}
                             >
                                 <div
                                     style={{
                                         width: 4,
                                         height: 4,
-                                        background: "rgba(28,28,28,0.1)",
+                                        background: "rgba(28,28,28,0.2)",
                                         borderRadius: "50%",
                                         flexShrink: 0,
                                     }}
@@ -1033,18 +1064,18 @@ export function ROICalculator({
                                     gap: 5,
                                     marginTop: 12,
                                     fontSize: 11,
-                                    color: "rgba(28,28,28,0.2)",
+                                    color: "rgba(28,28,28,0.35)",
                                     textDecoration: "none",
                                     cursor: "pointer",
                                 }}
-                                onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.45)"; e.currentTarget.style.textDecoration = "underline" }}
-                                onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.2)"; e.currentTarget.style.textDecoration = "none" }}
+                                onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.55)"; e.currentTarget.style.textDecoration = "underline" }}
+                                onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.35)"; e.currentTarget.style.textDecoration = "none" }}
                             >
                                 <div
                                     style={{
                                         width: 4,
                                         height: 4,
-                                        background: "rgba(28,28,28,0.1)",
+                                        background: "rgba(28,28,28,0.2)",
                                         borderRadius: "50%",
                                         flexShrink: 0,
                                     }}
@@ -1123,19 +1154,19 @@ export function ROICalculator({
                                 <div style={{
                                     background: colorWithOpacity(primaryColor, 0.06),
                                     borderRadius: 16,
-                                    padding: isMobile ? "28px 20px" : "32px 28px",
+                                    padding: isMobile ? "20px 16px" : "24px 24px",
                                     textAlign: "center",
                                     marginBottom: 12,
                                     display: "flex",
                                     flexDirection: "column" as const,
                                     alignItems: "center",
-                                    gap: 6,
+                                    gap: 4,
                                 }}>
-                                    <div style={{ fontSize: 11, textTransform: "uppercase" as const, letterSpacing: "0.08em", color: colorWithOpacity(primaryColor, 0.55), fontFamily: font }}>
+                                    <div style={{ fontSize: 10, textTransform: "uppercase" as const, letterSpacing: "0.08em", color: colorWithOpacity(primaryColor, 0.55), fontFamily: font }}>
                                         Retour sur investissement
                                     </div>
                                     <div style={{
-                                        fontSize: isMobile ? 48 : 56,
+                                        fontSize: isMobile ? 36 : 42,
                                         fontWeight: 600,
                                         color: primaryColor,
                                         letterSpacing: "-0.04em",
@@ -1144,7 +1175,7 @@ export function ROICalculator({
                                     }}>
                                         x{roiMultiplier}
                                     </div>
-                                    <div style={{ fontSize: 13, color: colorWithOpacity(primaryColor, 0.5) }}>
+                                    <div style={{ fontSize: 12, color: colorWithOpacity(primaryColor, 0.5) }}>
                                         pour chaque euro investi dans Recept AI
                                     </div>
                                 </div>
