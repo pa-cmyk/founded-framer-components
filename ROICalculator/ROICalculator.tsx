@@ -72,6 +72,8 @@ type Props = {
 
     // Style
     primaryColor: string
+    thumbRingColor: string
+    thumbRingWidth: number
     workDays: number
     maxWidth: number
 }
@@ -268,6 +270,8 @@ function PillSlider({
     primaryColor,
     defaultValue,
     markerLabel,
+    thumbRingColor,
+    thumbRingWidth,
 }: {
     value: number
     min: number
@@ -277,6 +281,8 @@ function PillSlider({
     primaryColor: string
     defaultValue: number
     markerLabel: string
+    thumbRingColor: string
+    thumbRingWidth: number
 }) {
     const trackRef = useRef<HTMLDivElement>(null)
     const isDragging = useRef(false)
@@ -377,7 +383,7 @@ function PillSlider({
                     alignItems: "center",
                     justifyContent: "center",
                     padding: "0 16px",
-                    boxShadow: "0 0 0 5px #FFFFFF",
+                    boxShadow: `0 0 0 ${thumbRingWidth}px ${thumbRingColor}`,
                     zIndex: 2,
                     cursor: "grab",
                     transition: isDragging.current ? "none" : "left 0.1s ease",
@@ -442,6 +448,8 @@ export function ROICalculator({
     maxRdvRate,
     stepRdvRate,
     primaryColor,
+    thumbRingColor,
+    thumbRingWidth,
     workDays,
     maxWidth,
 }: Props) {
@@ -795,6 +803,8 @@ export function ROICalculator({
                                 primaryColor={primaryColor}
                                 defaultValue={defaultMissedRate}
                                 markerLabel={hint2}
+                                thumbRingColor={thumbRingColor}
+                                thumbRingWidth={thumbRingWidth}
                             />
                             <a
                                 href={hintLink2}
@@ -974,6 +984,8 @@ export function ROICalculator({
                                 primaryColor={primaryColor}
                                 defaultValue={defaultRdvRate}
                                 markerLabel={hint4}
+                                thumbRingColor={thumbRingColor}
+                                thumbRingWidth={thumbRingWidth}
                             />
                             <a
                                 href={hintLink4}
@@ -1231,6 +1243,8 @@ ROICalculator.defaultProps = {
     stepRdvRate: 1,
 
     primaryColor: "#3067FF",
+    thumbRingColor: "#FFFFFF",
+    thumbRingWidth: 5,
     workDays: 22,
     maxWidth: 640,
 }
@@ -1519,6 +1533,20 @@ addPropertyControls(ROICalculator, {
         title: "Couleur primaire",
         type: ControlType.Color,
         defaultValue: "#3067FF",
+    },
+    thumbRingColor: {
+        title: "Couleur contour poignée",
+        type: ControlType.Color,
+        defaultValue: "#FFFFFF",
+    },
+    thumbRingWidth: {
+        title: "Épaisseur contour poignée",
+        type: ControlType.Number,
+        defaultValue: 5,
+        min: 0,
+        max: 15,
+        step: 1,
+        unit: "px",
     },
     workDays: {
         title: "Jours ouvrés/mois",
