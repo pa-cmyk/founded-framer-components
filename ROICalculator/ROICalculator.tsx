@@ -83,19 +83,32 @@ type Props = {
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
+function parseColorToRgb(color: string): { r: number; g: number; b: number } | null {
+    // 6-digit hex: #3067FF
+    const hex6 = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color)
+    if (hex6) return { r: parseInt(hex6[1], 16), g: parseInt(hex6[2], 16), b: parseInt(hex6[3], 16) }
+
+    // 3-digit hex: #36F
+    const hex3 = /^#?([a-f\d])([a-f\d])([a-f\d])$/i.exec(color)
+    if (hex3) return { r: parseInt(hex3[1] + hex3[1], 16), g: parseInt(hex3[2] + hex3[2], 16), b: parseInt(hex3[3] + hex3[3], 16) }
+
+    // 8-digit hex with alpha: #3067FFFF
+    const hex8 = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})[a-f\d]{2}$/i.exec(color)
+    if (hex8) return { r: parseInt(hex8[1], 16), g: parseInt(hex8[2], 16), b: parseInt(hex8[3], 16) }
+
+    // rgb(48, 103, 255) or rgba(48, 103, 255, 1)
+    const rgbMatch = /rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/.exec(color)
+    if (rgbMatch) return { r: parseInt(rgbMatch[1]), g: parseInt(rgbMatch[2]), b: parseInt(rgbMatch[3]) }
+
+    return null
+}
+
 function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
-    return result
-        ? {
-              r: parseInt(result[1], 16),
-              g: parseInt(result[2], 16),
-              b: parseInt(result[3], 16),
-          }
-        : null
+    return parseColorToRgb(hex)
 }
 
 function colorWithOpacity(color: string, opacity: number): string {
-    const rgb = hexToRgb(color)
+    const rgb = parseColorToRgb(color)
     if (rgb) return `rgba(${rgb.r},${rgb.g},${rgb.b},${opacity})`
     return color
 }
