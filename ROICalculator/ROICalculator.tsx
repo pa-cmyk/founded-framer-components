@@ -32,6 +32,9 @@ type Props = {
     hintLink3: string
     hintLink4: string
 
+    // Tips (displayed below hints)
+    tip2: string
+
     // Result
     resultLabel: string
     resultNote: string
@@ -423,6 +426,7 @@ export function ROICalculator({
     hintLink2,
     hintLink3,
     hintLink4,
+    tip2,
     resultLabel,
     resultNote,
     showCta,
@@ -835,6 +839,24 @@ export function ROICalculator({
                                 />
                                 {hint2}
                             </a>
+                            {tip2 && (
+                                <div
+                                    style={{
+                                        marginTop: 10,
+                                        fontSize: 11,
+                                        color: "rgba(28,28,28,0.35)",
+                                        lineHeight: 1.5,
+                                        textAlign: isMobile ? "center" as const : undefined,
+                                        display: "flex",
+                                        alignItems: "flex-start",
+                                        justifyContent: isMobile ? "center" : "flex-start",
+                                        gap: 5,
+                                    }}
+                                >
+                                    <svg width="13" height="13" viewBox="0 0 256 256" fill="rgba(28,28,28,0.25)" style={{ flexShrink: 0, marginTop: 1 }}><path d="M176,232a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,232Zm40-128a87.55,87.55,0,0,1-33.64,69.21A16.24,16.24,0,0,0,176,186v6a16,16,0,0,1-16,16H96a16,16,0,0,1-16-16v-6a16,16,0,0,0-6.23-12.66A87.59,87.59,0,0,1,40,104.49C39.74,56.83,78.26,17.14,125.88,16A88,88,0,0,1,216,104Zm-16,0a72,72,0,0,0-73.74-72c-39,.92-70.47,33.39-70.26,72.39a71.65,71.65,0,0,0,27.64,56.3A32,32,0,0,1,96,186v6h64v-6a32.15,32.15,0,0,1,12.47-25.35A71.65,71.65,0,0,0,200,104Z"/></svg>
+                                    <span>{tip2}</span>
+                                </div>
+                            )}
                         </div>
                     </div>
 
@@ -1080,9 +1102,40 @@ export function ROICalculator({
                         const lostRevenueMonth = Math.round(lostPatientsMonth * basket)
                         const gainAnnual = lostRevenueMonth * 12
                         const patientsAnnual = lostPatientsMonth * 12
+                        const roiMultiplier = receptCost > 0 ? Math.round(lostRevenueMonth / receptCost) : 0
 
                         return (
                             <div style={{ marginTop: isMobile ? 28 : 40 }}>
+                                {/* Section ROI — highlight block */}
+                                <div style={{
+                                    background: colorWithOpacity(primaryColor, 0.06),
+                                    borderRadius: 16,
+                                    padding: isMobile ? "28px 20px" : "32px 28px",
+                                    textAlign: "center",
+                                    marginBottom: 12,
+                                    display: "flex",
+                                    flexDirection: "column" as const,
+                                    alignItems: "center",
+                                    gap: 6,
+                                }}>
+                                    <div style={{ fontSize: 11, textTransform: "uppercase" as const, letterSpacing: "0.08em", color: colorWithOpacity(primaryColor, 0.55), fontFamily: font }}>
+                                        Retour sur investissement
+                                    </div>
+                                    <div style={{
+                                        fontSize: isMobile ? 48 : 56,
+                                        fontWeight: 600,
+                                        color: primaryColor,
+                                        letterSpacing: "-0.04em",
+                                        lineHeight: 1,
+                                        fontFamily: font,
+                                    }}>
+                                        x{roiMultiplier}
+                                    </div>
+                                    <div style={{ fontSize: 13, color: colorWithOpacity(primaryColor, 0.5) }}>
+                                        pour chaque euro investi dans Recept AI
+                                    </div>
+                                </div>
+
                                 {/* Section A — 3 stat cards */}
                                 <div
                                     style={{
@@ -1113,13 +1166,13 @@ export function ROICalculator({
                                     </div>
                                 </div>
 
-                                {/* Section B — Annual gain */}
-                                <div style={{ background: "#F6F6F6", borderRadius: 16, padding: isMobile ? "32px 20px" : "40px 28px", textAlign: "center", marginTop: 12 }}>
-                                    <div style={{ fontSize: 13, color: "rgba(28,28,28,0.4)", marginBottom: 12 }}>Gain potentiel annuel avec Recept AI</div>
+                                {/* Section B — Annual gain (green) */}
+                                <div style={{ background: "rgba(16,185,129,0.06)", borderRadius: 16, padding: isMobile ? "32px 20px" : "40px 28px", textAlign: "center", marginTop: 12 }}>
+                                    <div style={{ fontSize: 13, color: "rgba(16,185,129,0.6)", marginBottom: 12 }}>Gain potentiel annuel avec Recept AI</div>
                                     <div style={{
                                         fontSize: isMobile ? 48 : 64,
                                         fontWeight: 600,
-                                        color: primaryColor,
+                                        color: "#10B981",
                                         letterSpacing: "-0.04em",
                                         lineHeight: 1,
                                         fontVariantNumeric: "tabular-nums",
@@ -1128,10 +1181,10 @@ export function ROICalculator({
                                     }}>
                                         {formatFR(displayAnnualGain)} €
                                     </div>
-                                    <div style={{ fontSize: 14, color: "rgba(28,28,28,0.4)", lineHeight: 1.6 }}>
-                                        de chiffre d'affaires récupérable chaque année grâce à Recept AI.
+                                    <div style={{ fontSize: 14, color: "rgba(16,185,129,0.55)", lineHeight: 1.6 }}>
+                                        de gain potentiel chaque année grâce à Recept AI.
                                         <br />
-                                        Soit <strong style={{ color: "rgba(28,28,28,0.6)" }}>{formatFR(patientsAnnual)} patients</strong> supplémentaires pour votre cabinet.
+                                        Soit <strong style={{ color: "rgba(16,185,129,0.75)" }}>{formatFR(patientsAnnual)} patients</strong> supplémentaires pour votre cabinet.
                                     </div>
                                 </div>
 
@@ -1210,6 +1263,8 @@ ROICalculator.defaultProps = {
     hintLink2: "https://media.doctolib.com/image/upload/mkg/file/cp_rdv_non_honores.pdf",
     hintLink3: "https://www.verspieren.com/fr/entreprise/article/adp/analyse-depenses-de-sante-en-france-rapport-2025",
     hintLink4: "https://rcpt.ai/",
+
+    tip2: "Astuce : demandez à votre assistant(e) combien de temps / jour est passé au téléphone",
 
     resultLabel: "Votre gain potentiel mensuel",
     resultNote: "Basé sur 22 jours ouvrés par mois",
@@ -1340,6 +1395,13 @@ addPropertyControls(ROICalculator, {
         title: "Lien source part RDV",
         type: ControlType.String,
         defaultValue: "https://rcpt.ai/",
+    },
+
+    // ── Tips ──
+    tip2: {
+        title: "Astuce taux manqués",
+        type: ControlType.String,
+        defaultValue: "Astuce : demandez à votre assistant(e) combien de temps / jour est passé au téléphone",
     },
 
     // ── Result ──
