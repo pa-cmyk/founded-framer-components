@@ -1223,7 +1223,93 @@ export function ROICalculator({
                                     </div>
                                 </div>
 
-                                {/* Section D — Final CTA */}
+                                {/* Section D — Détail des calculs */}
+                                <div style={{
+                                    marginTop: 12,
+                                    background: "#F6F6F6",
+                                    borderRadius: 16,
+                                    padding: isMobile ? "24px 16px" : "28px 24px",
+                                }}>
+                                    <div style={{
+                                        fontSize: 11,
+                                        textTransform: "uppercase" as const,
+                                        letterSpacing: "0.08em",
+                                        color: "rgba(28,28,28,0.35)",
+                                        marginBottom: 16,
+                                        fontFamily: font,
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: 6,
+                                    }}>
+                                        <svg width="14" height="14" viewBox="0 0 256 256" fill="rgba(28,28,28,0.3)"><path d="M80,120a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H72A8,8,0,0,1,80,120Zm-8,24H40a8,8,0,0,0,0,16H72a8,8,0,0,0,0-16Zm0,32H40a8,8,0,0,0,0,16H72a8,8,0,0,0,0-16Zm96-56H136a8,8,0,0,0,0,16h32a8,8,0,0,0,0-16Zm0,32H136a8,8,0,0,0,0,16h32a8,8,0,0,0,0-16Zm0,32H136a8,8,0,0,0,0,16h32a8,8,0,0,0,0-16Zm64-136V208a16,16,0,0,1-16,16H40a16,16,0,0,1-16-16V48A16,16,0,0,1,40,32H216A16,16,0,0,1,232,48ZM216,208V48H40V208H216Zm-40-56a8,8,0,0,0,8-8V104a8,8,0,0,0-8-8H168V88a8,8,0,0,0-16,0v8H144a8,8,0,0,0-8,8v40a8,8,0,0,0,8,8h8v8a8,8,0,0,0,16,0v-8Zm-8-16H152V112h16ZM112,88H96V72a8,8,0,0,0-16,0V88H64a8,8,0,0,0,0,16H80v16a8,8,0,0,0,16,0V104h16a8,8,0,0,0,0-16Z"/></svg>
+                                        Détail des calculs
+                                    </div>
+
+                                    {/* Ligne 1 : Manque à gagner mensuel */}
+                                    <div style={{ marginBottom: 14 }}>
+                                        <div style={{ fontSize: 12, fontWeight: 500, color: "rgba(28,28,28,0.55)", marginBottom: 6 }}>
+                                            Manque à gagner mensuel
+                                        </div>
+                                        <div style={{
+                                            fontSize: 12,
+                                            color: "rgba(28,28,28,0.35)",
+                                            lineHeight: 1.7,
+                                            fontFamily: font,
+                                        }}>
+                                            <span style={{ fontVariantNumeric: "tabular-nums" }}>{calls}</span> appels/jour
+                                            <span style={{ margin: "0 4px", opacity: 0.4 }}>×</span>
+                                            <span style={{ fontVariantNumeric: "tabular-nums" }}>{missedRate}%</span> manqués
+                                            <span style={{ margin: "0 4px", opacity: 0.4 }}>×</span>
+                                            <span style={{ fontVariantNumeric: "tabular-nums" }}>{rdvRate}%</span> liés à un RDV
+                                            <span style={{ margin: "0 4px", opacity: 0.4 }}>×</span>
+                                            <span style={{ fontVariantNumeric: "tabular-nums" }}>{workDays}</span> jours ouvrés
+                                            <span style={{ margin: "0 4px", opacity: 0.4 }}>×</span>
+                                            <span style={{ fontVariantNumeric: "tabular-nums" }}>{basket} €</span> panier moyen
+                                        </div>
+                                        <div style={{
+                                            fontSize: 14,
+                                            fontWeight: 600,
+                                            color: "#E53535",
+                                            marginTop: 4,
+                                            fontFamily: font,
+                                            fontVariantNumeric: "tabular-nums",
+                                        }}>
+                                            = {formatFR(lostRevenueMonth)} € / mois
+                                        </div>
+                                    </div>
+
+                                    {/* Séparateur */}
+                                    <div style={{ height: 1, background: "rgba(28,28,28,0.06)", marginBottom: 14 }} />
+
+                                    {/* Ligne 2 : Manque à gagner annuel */}
+                                    <div>
+                                        <div style={{ fontSize: 12, fontWeight: 500, color: "rgba(28,28,28,0.55)", marginBottom: 6 }}>
+                                            Manque à gagner annuel
+                                        </div>
+                                        <div style={{
+                                            fontSize: 12,
+                                            color: "rgba(28,28,28,0.35)",
+                                            lineHeight: 1.7,
+                                            fontFamily: font,
+                                        }}>
+                                            <span style={{ fontVariantNumeric: "tabular-nums" }}>{formatFR(lostRevenueMonth)} €</span> / mois
+                                            <span style={{ margin: "0 4px", opacity: 0.4 }}>×</span>
+                                            12 mois
+                                        </div>
+                                        <div style={{
+                                            fontSize: 14,
+                                            fontWeight: 600,
+                                            color: "#E53535",
+                                            marginTop: 4,
+                                            fontFamily: font,
+                                            fontVariantNumeric: "tabular-nums",
+                                        }}>
+                                            = {formatFR(gainAnnual)} € / an
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Section E — Final CTA */}
                                 <ResultCtaButton
                                     text={ctaResultText}
                                     href={ctaLink}
