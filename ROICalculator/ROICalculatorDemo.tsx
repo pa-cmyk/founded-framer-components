@@ -260,12 +260,14 @@ export function ROICalculatorDemo({
     const [displayResult, setDisplayResult] = useState(() =>
         Math.round(startCalls * (startMissedRate / 100) * (startRdvRate / 100) * startBasket * workDays)
     )
+    const [scaleFactor, setScaleFactor] = useState(1)
 
     // Highlighted targets (for hover simulation)
     const [highlightedTarget, setHighlightedTarget] = useState<TargetId | null>(null)
 
     // ── Refs ──
     const containerRef = useRef<HTMLDivElement>(null)
+    const innerRef = useRef<HTMLDivElement>(null)
     const cursorRef = useRef<HTMLDivElement>(null)
     const cancelledRef = useRef(false)
 
@@ -286,7 +288,22 @@ export function ROICalculatorDemo({
         "rdv-slider": rdvTrackRef,
     }
 
-    // Layout is controlled by the `layout` prop switch — no auto-detection needed
+    // ── Scale to fit container ──
+    useEffect(() => {
+        if (!containerRef.current) return
+        const ro = new ResizeObserver((entries) => {
+            for (const entry of entries) {
+                const containerW = entry.contentRect.width
+                if (containerW > 0 && containerW < maxWidth) {
+                    setScaleFactor(containerW / maxWidth)
+                } else {
+                    setScaleFactor(1)
+                }
+            }
+        })
+        ro.observe(containerRef.current)
+        return () => ro.disconnect()
+    }, [maxWidth])
 
     // ── Gain calculation + counting animation ──
     const calcGain = useCallback(
@@ -604,19 +621,31 @@ export function ROICalculatorDemo({
         textAlign: isMobile ? "center" : undefined,
     }
 
+    // Measure inner height to set correct outer height when scaled
+    const [innerHeight, setInnerHeight] = useState(0)
+    useEffect(() => {
+        if (!innerRef.current) return
+        const ro = new ResizeObserver((entries) => {
+            for (const entry of entries) setInnerHeight(entry.borderBoxSize?.[0]?.blockSize ?? entry.contentRect.height)
+        })
+        ro.observe(innerRef.current)
+        return () => ro.disconnect()
+    }, [])
+
     return (
         <div
             ref={containerRef}
             style={{
                 fontFamily: font,
                 width: "100%",
+                height: scaleFactor < 1 ? innerHeight * scaleFactor : undefined,
                 WebkitFontSmoothing: "antialiased",
             }}
         >
             <div
+                ref={innerRef}
                 style={{
-                    maxWidth,
-                    margin: "0 auto",
+                    width: maxWidth,
                     background: "#FFFFFF",
                     borderRadius: cardBorderRadius,
                     boxShadow: cardShadow
@@ -625,6 +654,8 @@ export function ROICalculatorDemo({
                     padding: isMobile ? "28px 20px" : "40px 36px",
                     position: "relative",
                     overflow: "hidden",
+                    transform: scaleFactor < 1 ? `scale(${scaleFactor})` : undefined,
+                    transformOrigin: "top left",
                 }}
             >
                 {/* ── Calculator body (non-interactive) ── */}
