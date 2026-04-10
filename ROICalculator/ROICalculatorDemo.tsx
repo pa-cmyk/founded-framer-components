@@ -331,15 +331,26 @@ export function ROICalculatorDemo({
         let _missedRate = startMissedRate
         let _rdvRate = startRdvRate
 
+        // Detect external scale (Framer may apply transform: scale on a parent)
+        // offsetWidth = local CSS size, getBoundingClientRect().width = visual size after transforms
+        function getScaleRatio(): number {
+            const ct = containerRef.current
+            if (!ct) return 1
+            const rectW = ct.getBoundingClientRect().width
+            if (rectW === 0) return 1
+            return ct.offsetWidth / rectW
+        }
+
         function getCenter(id: TargetId): { x: number; y: number } {
             const el = targetRefs[id]?.current
             const ct = containerRef.current
             if (!el || !ct) return { x: curX, y: curY }
             const eR = el.getBoundingClientRect()
             const cR = ct.getBoundingClientRect()
+            const ratio = getScaleRatio()
             return {
-                x: eR.left + eR.width / 2 - cR.left,
-                y: eR.top + eR.height / 2 - cR.top,
+                x: (eR.left + eR.width / 2 - cR.left) * ratio,
+                y: (eR.top + eR.height / 2 - cR.top) * ratio,
             }
         }
 
@@ -349,9 +360,10 @@ export function ROICalculatorDemo({
             if (!el || !ct) return { x: curX, y: curY }
             const eR = el.getBoundingClientRect()
             const cR = ct.getBoundingClientRect()
+            const ratio = getScaleRatio()
             return {
-                x: eR.left + eR.width * (pct / 100) - cR.left,
-                y: eR.top + eR.height / 2 - cR.top,
+                x: (eR.left + eR.width * (pct / 100) - cR.left) * ratio,
+                y: (eR.top + eR.height / 2 - cR.top) * ratio,
             }
         }
 
