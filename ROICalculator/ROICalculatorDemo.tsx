@@ -261,6 +261,7 @@ export function ROICalculatorDemo({
         Math.round(startCalls * (startMissedRate / 100) * (startRdvRate / 100) * startBasket * workDays)
     )
     const [scaleFactor, setScaleFactor] = useState(1)
+    const [scaledHeight, setScaledHeight] = useState<number | undefined>(undefined)
     // Highlighted targets (for hover simulation)
     const [highlightedTarget, setHighlightedTarget] = useState<TargetId | null>(null)
 
@@ -293,10 +294,14 @@ export function ROICalculatorDemo({
         const ro = new ResizeObserver((entries) => {
             for (const entry of entries) {
                 const w = entry.contentRect.width
+                let sf = 1
                 if (w > 0 && w < maxWidth) {
-                    setScaleFactor(w / maxWidth)
-                } else {
-                    setScaleFactor(1)
+                    sf = w / maxWidth
+                }
+                setScaleFactor(sf)
+                // Measure inner container's real height and set outer height to match scaled size
+                if (containerRef.current) {
+                    setScaledHeight(containerRef.current.offsetHeight * sf)
                 }
             }
         })
@@ -637,7 +642,7 @@ export function ROICalculatorDemo({
             ref={outerRef}
             style={{
                 width: "100%",
-                height: "100%",
+                height: scaledHeight,
                 overflow: "hidden",
             }}
         >
