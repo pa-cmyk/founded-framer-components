@@ -14,6 +14,7 @@ type DemoProps = {
     thumbRingColor: string
     thumbRingWidth: number
     maxWidth: number
+    layout: "horizontal" | "vertical"
     animationSpeed: number
     pauseBetweenLoops: number
     cardBorderRadius: number
@@ -217,6 +218,7 @@ export function ROICalculatorDemo({
     thumbRingColor,
     thumbRingWidth,
     maxWidth,
+    layout,
     animationSpeed,
     pauseBetweenLoops,
     cardBorderRadius,
@@ -253,7 +255,9 @@ export function ROICalculatorDemo({
     const [rdvRate, setRdvRate] = useState(startRdvRate)
     const [callsBump, setCallsBump] = useState<"up" | "down" | null>(null)
     const [basketBump, setBasketBump] = useState<"up" | "down" | null>(null)
-    const [isMobile, setIsMobile] = useState(false)
+    const [containerMobile, setContainerMobile] = useState(false)
+    const isVertical = layout === "vertical"
+    const isMobile = isVertical || containerMobile
     const [displayResult, setDisplayResult] = useState(() =>
         Math.round(startCalls * (startMissedRate / 100) * (startRdvRate / 100) * startBasket * workDays)
     )
@@ -287,7 +291,7 @@ export function ROICalculatorDemo({
     useEffect(() => {
         if (!containerRef.current) return
         const ro = new ResizeObserver((entries) => {
-            for (const entry of entries) setIsMobile(entry.contentRect.width <= 680)
+            for (const entry of entries) setContainerMobile(entry.contentRect.width <= 680)
         })
         ro.observe(containerRef.current)
         return () => ro.disconnect()
@@ -810,28 +814,29 @@ export function ROICalculatorDemo({
                     </div>
                 </div>
 
-                {/* ── Animated cursor ── */}
+                {/* ── Animated cursor (mouse pointer SVG) ── */}
                 <div
                     ref={cursorRef}
                     style={{
                         position: "absolute",
                         top: 0,
                         left: 0,
-                        width: 20,
-                        height: 20,
-                        borderRadius: "50%",
-                        background: colorWithOpacity(primaryColor, 0.9),
-                        boxShadow: `0 0 0 4px ${colorWithOpacity(primaryColor, 0.2)}, 0 2px 8px ${colorWithOpacity(primaryColor, 0.3)}`,
+                        width: 24,
+                        height: 24,
                         pointerEvents: "none",
                         zIndex: 100,
                         opacity: 0,
                         transition: "opacity 0.4s ease, transform 0.08s",
                         willChange: "transform, opacity",
-                        // Offset so the cursor center aligns with the transform point
-                        marginLeft: -10,
-                        marginTop: -10,
+                        marginLeft: -3,
+                        marginTop: -1,
+                        filter: `drop-shadow(0 2px 4px ${colorWithOpacity(primaryColor, 0.3)})`,
                     }}
-                />
+                >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87c.45 0 .67-.54.35-.85L5.85 2.36a.5.5 0 0 0-.35.85z" fill={primaryColor} stroke="#FFFFFF" strokeWidth="1.5" strokeLinejoin="round"/>
+                    </svg>
+                </div>
             </div>
         </div>
     )
@@ -844,6 +849,7 @@ ROICalculatorDemo.defaultProps = {
     thumbRingColor: "#FFFFFF",
     thumbRingWidth: 5,
     maxWidth: 640,
+    layout: "horizontal",
     animationSpeed: 1,
     pauseBetweenLoops: 2000,
     cardBorderRadius: 20,
@@ -907,6 +913,13 @@ addPropertyControls(ROICalculatorDemo, {
         max: 1200,
         step: 10,
         unit: "px",
+    },
+    layout: {
+        title: "Layout",
+        type: ControlType.Enum,
+        options: ["horizontal", "vertical"],
+        optionTitles: ["Horizontal (Desktop)", "Vertical (Mobile)"],
+        defaultValue: "horizontal",
     },
     cardBorderRadius: {
         title: "Border radius card",
