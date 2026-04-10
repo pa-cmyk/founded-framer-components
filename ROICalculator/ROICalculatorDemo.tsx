@@ -260,10 +260,12 @@ export function ROICalculatorDemo({
     const [displayResult, setDisplayResult] = useState(() =>
         Math.round(startCalls * (startMissedRate / 100) * (startRdvRate / 100) * startBasket * workDays)
     )
+    const [scaleFactor, setScaleFactor] = useState(1)
     // Highlighted targets (for hover simulation)
     const [highlightedTarget, setHighlightedTarget] = useState<TargetId | null>(null)
 
     // ── Refs ──
+    const outerRef = useRef<HTMLDivElement>(null)
     const containerRef = useRef<HTMLDivElement>(null)
     const cursorRef = useRef<HTMLDivElement>(null)
     const cancelledRef = useRef(false)
@@ -284,6 +286,23 @@ export function ROICalculatorDemo({
         "missed-slider": missedTrackRef,
         "rdv-slider": rdvTrackRef,
     }
+
+    // ── Scale to fit: outer wrapper drives the scale ──
+    useEffect(() => {
+        if (!outerRef.current) return
+        const ro = new ResizeObserver((entries) => {
+            for (const entry of entries) {
+                const w = entry.contentRect.width
+                if (w > 0 && w < maxWidth) {
+                    setScaleFactor(w / maxWidth)
+                } else {
+                    setScaleFactor(1)
+                }
+            }
+        })
+        ro.observe(outerRef.current)
+        return () => ro.disconnect()
+    }, [maxWidth])
 
     // ── Gain calculation + counting animation ──
     const calcGain = useCallback(
@@ -615,23 +634,32 @@ export function ROICalculatorDemo({
 
     return (
         <div
-            ref={containerRef}
+            ref={outerRef}
             style={{
-                fontFamily: font,
                 width: "100%",
-                maxWidth: maxWidth,
-                background: "#FFFFFF",
-                borderRadius: cardBorderRadius,
-                boxShadow: cardShadow
-                    ? "0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06)"
-                    : "none",
-                padding: isMobile ? "28px 20px" : "40px 36px",
-                position: "relative",
+                height: "100%",
                 overflow: "hidden",
-                WebkitFontSmoothing: "antialiased",
-                boxSizing: "border-box",
             }}
         >
+            <div
+                ref={containerRef}
+                style={{
+                    fontFamily: font,
+                    width: maxWidth,
+                    background: "#FFFFFF",
+                    borderRadius: cardBorderRadius,
+                    boxShadow: cardShadow
+                        ? "0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06)"
+                        : "none",
+                    padding: isMobile ? "28px 20px" : "40px 36px",
+                    position: "relative",
+                    overflow: "hidden",
+                    WebkitFontSmoothing: "antialiased",
+                    boxSizing: "border-box",
+                    transform: `scale(${scaleFactor})`,
+                    transformOrigin: "top left",
+                }}
+            >
                 {/* ── Calculator body (non-interactive) ── */}
                 <div style={{ pointerEvents: "none" }}>
                     {/* Row 1 titles (desktop only) */}
@@ -833,6 +861,7 @@ export function ROICalculatorDemo({
                         <path d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87c.45 0 .67-.54.35-.85L5.85 2.36a.5.5 0 0 0-.35.85z" fill={primaryColor} stroke="#FFFFFF" strokeWidth="1.5" strokeLinejoin="round"/>
                     </svg>
                 </div>
+            </div>
         </div>
     )
 }
