@@ -255,9 +255,8 @@ export function ROICalculatorDemo({
     const [rdvRate, setRdvRate] = useState(startRdvRate)
     const [callsBump, setCallsBump] = useState<"up" | "down" | null>(null)
     const [basketBump, setBasketBump] = useState<"up" | "down" | null>(null)
-    const [containerMobile, setContainerMobile] = useState(false)
-    const isVertical = layout === "vertical"
-    const isMobile = isVertical || containerMobile
+    // Layout switch is authoritative — ignore container width
+    const isMobile = layout === "vertical"
     const [displayResult, setDisplayResult] = useState(() =>
         Math.round(startCalls * (startMissedRate / 100) * (startRdvRate / 100) * startBasket * workDays)
     )
@@ -287,15 +286,7 @@ export function ROICalculatorDemo({
         "rdv-slider": rdvTrackRef,
     }
 
-    // ── Responsive ──
-    useEffect(() => {
-        if (!containerRef.current) return
-        const ro = new ResizeObserver((entries) => {
-            for (const entry of entries) setContainerMobile(entry.contentRect.width <= 680)
-        })
-        ro.observe(containerRef.current)
-        return () => ro.disconnect()
-    }, [])
+    // Layout is controlled by the `layout` prop switch — no auto-detection needed
 
     // ── Gain calculation + counting animation ──
     const calcGain = useCallback(
