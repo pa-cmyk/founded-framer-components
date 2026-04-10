@@ -357,7 +357,7 @@ export function ROICalculatorDemo({
 
         function getCenter(id: TargetId): { x: number; y: number } {
             const el = targetRefs[id]?.current
-            const ct = containerRef.current
+            const ct = innerRef.current
             if (!el || !ct) return { x: curX, y: curY }
             const eR = el.getBoundingClientRect()
             const cR = ct.getBoundingClientRect()
@@ -370,7 +370,7 @@ export function ROICalculatorDemo({
 
         function getSliderX(id: TargetId, pct: number): { x: number; y: number } {
             const el = targetRefs[id]?.current
-            const ct = containerRef.current
+            const ct = innerRef.current
             if (!el || !ct) return { x: curX, y: curY }
             const eR = el.getBoundingClientRect()
             const cR = ct.getBoundingClientRect()
