@@ -261,7 +261,6 @@ export function ROICalculatorDemo({
         Math.round(startCalls * (startMissedRate / 100) * (startRdvRate / 100) * startBasket * workDays)
     )
     const [scaleFactor, setScaleFactor] = useState(1)
-    const scaleRef = useRef(1)
 
     // Highlighted targets (for hover simulation)
     const [highlightedTarget, setHighlightedTarget] = useState<TargetId | null>(null)
@@ -296,12 +295,9 @@ export function ROICalculatorDemo({
             for (const entry of entries) {
                 const containerW = entry.contentRect.width
                 if (containerW > 0 && containerW < maxWidth) {
-                    const s = containerW / maxWidth
-                    setScaleFactor(s)
-                    scaleRef.current = s
+                    setScaleFactor(containerW / maxWidth)
                 } else {
                     setScaleFactor(1)
-                    scaleRef.current = 1
                 }
             }
         })
@@ -361,10 +357,9 @@ export function ROICalculatorDemo({
             if (!el || !ct) return { x: curX, y: curY }
             const eR = el.getBoundingClientRect()
             const cR = ct.getBoundingClientRect()
-            const s = scaleRef.current
             return {
-                x: (eR.left + eR.width / 2 - cR.left) / s,
-                y: (eR.top + eR.height / 2 - cR.top) / s,
+                x: eR.left + eR.width / 2 - cR.left,
+                y: eR.top + eR.height / 2 - cR.top,
             }
         }
 
@@ -374,10 +369,9 @@ export function ROICalculatorDemo({
             if (!el || !ct) return { x: curX, y: curY }
             const eR = el.getBoundingClientRect()
             const cR = ct.getBoundingClientRect()
-            const s = scaleRef.current
             return {
-                x: (eR.left + eR.width * (pct / 100) - cR.left) / s,
-                y: (eR.top + eR.height / 2 - cR.top) / s,
+                x: eR.left + eR.width * (pct / 100) - cR.left,
+                y: eR.top + eR.height / 2 - cR.top,
             }
         }
 
@@ -627,31 +621,19 @@ export function ROICalculatorDemo({
         textAlign: isMobile ? "center" : undefined,
     }
 
-    // Measure inner height to set correct outer height when scaled
-    const [innerHeight, setInnerHeight] = useState(0)
-    useEffect(() => {
-        if (!innerRef.current) return
-        const ro = new ResizeObserver((entries) => {
-            for (const entry of entries) setInnerHeight(entry.borderBoxSize?.[0]?.blockSize ?? entry.contentRect.height)
-        })
-        ro.observe(innerRef.current)
-        return () => ro.disconnect()
-    }, [])
-
     return (
         <div
             ref={containerRef}
             style={{
                 fontFamily: font,
                 width: "100%",
-                height: scaleFactor < 1 ? innerHeight * scaleFactor : undefined,
                 WebkitFontSmoothing: "antialiased",
             }}
         >
             <div
                 ref={innerRef}
                 style={{
-                    width: maxWidth,
+                    width: scaleFactor < 1 ? "100%" : maxWidth,
                     background: "#FFFFFF",
                     borderRadius: cardBorderRadius,
                     boxShadow: cardShadow
@@ -660,8 +642,7 @@ export function ROICalculatorDemo({
                     padding: isMobile ? "28px 20px" : "40px 36px",
                     position: "relative",
                     overflow: "hidden",
-                    transform: scaleFactor < 1 ? `scale(${scaleFactor})` : undefined,
-                    transformOrigin: "top left",
+                    zoom: scaleFactor < 1 ? scaleFactor : undefined,
                 }}
             >
                 {/* ── Calculator body (non-interactive) ── */}
