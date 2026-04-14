@@ -709,40 +709,15 @@ export function ROICalculator({
                 {/* ── Calc card ── */}
                 <div>
                     {/* ROW 1: calls (left) + missed rate slider (right) */}
-                    {/* Titles row — aligned on same line in desktop */}
-                    {!isMobile && (
-                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 32px", paddingBottom: 0, alignItems: "start" }}>
-                            <div>
-                                <div style={{ fontSize: activeLabelSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", whiteSpace: "nowrap" as const }}>
+                    <div style={{ ...paramRowStyle, ...(isMobile ? { paddingTop: 0 } : { paddingTop: 0 }) }}>
+                        {/* Cell 1: Calls stepper */}
+                        <div style={paramCellStyle}>
+                            <div style={{ marginBottom: 20, textAlign: isMobile ? "center" as const : undefined }}>
+                                <div style={{ fontSize: activeLabelSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", justifyContent: isMobile ? "center" : "flex-start", whiteSpace: "nowrap" as const }}>
                                     <svg width={iconSize} height={iconSize} viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6 }}><path d="M231.88,175.08A56.26,56.26,0,0,1,176,224C96.6,224,32,159.4,32,80A56.26,56.26,0,0,1,80.92,24.12a16,16,0,0,1,16.62,9.52l21.12,47.15v.12A16,16,0,0,1,117.39,96c-.18.27-.37.52-.57.77L96,121.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,231.88,175.08Z"/></svg>{label1}
                                 </div>
                                 <div style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4 }}>{hint1}</div>
                             </div>
-                            <div>
-                                <div style={{ fontSize: activeLabelSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", whiteSpace: "nowrap" as const }}>
-                                    <svg width={iconSize} height={iconSize} viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6 }}><path d="M231.88,175.08A56.26,56.26,0,0,1,176,224C96.6,224,32,159.4,32,80A56.26,56.26,0,0,1,80.92,24.12a16,16,0,0,1,16.62,9.52l21.12,47.15v.12A16,16,0,0,1,117.39,96c-.18.27-.37.52-.57.77L96,121.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,231.88,175.08ZM157.66,50.34,176,68.69l18.34-18.35a8,8,0,0,1,11.32,11.32L187.31,80l18.35,18.34a8,8,0,0,1-11.32,11.32L176,91.31l-18.34,18.35a8,8,0,0,1-11.32-11.32L164.69,80,146.34,61.66a8,8,0,0,1,11.32-11.32Z"/></svg>{label2}
-                                </div>
-                                <div style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4 }}>{hint2}</div>
-                                {tip2 && (
-                                    <div style={{ marginTop: 8, fontSize: 11, color: "#92700C", lineHeight: 1.5, background: "#FFF9E6", borderRadius: 10, padding: "10px 14px", display: "flex", alignItems: "flex-start", gap: 7 }}>
-                                        <svg width="14" height="14" viewBox="0 0 256 256" fill="#B8930F" style={{ flexShrink: 0, marginTop: 1 }}><path d="M176,232a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,232Zm40-128a87.55,87.55,0,0,1-33.64,69.21A16.24,16.24,0,0,0,176,186v6a16,16,0,0,1-16,16H96a16,16,0,0,1-16-16v-6a16,16,0,0,0-6.23-12.66A87.59,87.59,0,0,1,40,104.49C39.74,56.83,78.26,17.14,125.88,16A88,88,0,0,1,216,104Zm-16,0a72,72,0,0,0-73.74-72c-39,.92-70.47,33.39-70.26,72.39a71.65,71.65,0,0,0,27.64,56.3A32,32,0,0,1,96,186v6h64v-6a32.15,32.15,0,0,1,12.47-25.35A71.65,71.65,0,0,0,200,104Z"/></svg>
-                                        <span>{tip2}</span>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    )}
-                    <div style={{ ...paramRowStyle, ...(isMobile ? { paddingTop: 0 } : { paddingTop: 16 }) }}>
-                        {/* Cell 1: Calls stepper */}
-                        <div style={paramCellStyle}>
-                            {isMobile && (
-                                <div style={{ marginBottom: 20, textAlign: "center" as const }}>
-                                    <div style={{ fontSize: activeLabelSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", justifyContent: "center", whiteSpace: "nowrap" as const }}>
-                                        <svg width={iconSize} height={iconSize} viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6 }}><path d="M231.88,175.08A56.26,56.26,0,0,1,176,224C96.6,224,32,159.4,32,80A56.26,56.26,0,0,1,80.92,24.12a16,16,0,0,1,16.62,9.52l21.12,47.15v.12A16,16,0,0,1,117.39,96c-.18.27-.37.52-.57.77L96,121.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,231.88,175.08Z"/></svg>{label1}
-                                    </div>
-                                    <div style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4 }}>{hint1}</div>
-                                </div>
-                            )}
                             <div
                                 style={{
                                     display: "flex",
@@ -799,21 +774,19 @@ export function ROICalculator({
                         </div>
 
                         {/* Cell 2: Missed rate slider */}
-                        <div style={isMobile ? { ...paramCellStyle } : paramCellStyle}>
-                            {isMobile && (
-                                <div style={{ marginBottom: 20, textAlign: "center" as const }}>
-                                    <div style={{ fontSize: activeLabelSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", justifyContent: "center", whiteSpace: "nowrap" as const }}>
-                                        <svg width={iconSize} height={iconSize} viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6 }}><path d="M231.88,175.08A56.26,56.26,0,0,1,176,224C96.6,224,32,159.4,32,80A56.26,56.26,0,0,1,80.92,24.12a16,16,0,0,1,16.62,9.52l21.12,47.15v.12A16,16,0,0,1,117.39,96c-.18.27-.37.52-.57.77L96,121.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,231.88,175.08ZM157.66,50.34,176,68.69l18.34-18.35a8,8,0,0,1,11.32,11.32L187.31,80l18.35,18.34a8,8,0,0,1-11.32,11.32L176,91.31l-18.34,18.35a8,8,0,0,1-11.32-11.32L164.69,80,146.34,61.66a8,8,0,0,1,11.32-11.32Z"/></svg>{label2}
-                                    </div>
-                                    <div style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4 }}>{hint2}</div>
-                                    {tip2 && (
-                                        <div style={{ marginTop: 8, fontSize: 11, color: "#92700C", lineHeight: 1.5, background: "#FFF9E6", borderRadius: 10, padding: "10px 14px", display: "flex", alignItems: "flex-start", justifyContent: "center", gap: 7 }}>
-                                            <svg width="14" height="14" viewBox="0 0 256 256" fill="#B8930F" style={{ flexShrink: 0, marginTop: 1 }}><path d="M176,232a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,232Zm40-128a87.55,87.55,0,0,1-33.64,69.21A16.24,16.24,0,0,0,176,186v6a16,16,0,0,1-16,16H96a16,16,0,0,1-16-16v-6a16,16,0,0,0-6.23-12.66A87.59,87.59,0,0,1,40,104.49C39.74,56.83,78.26,17.14,125.88,16A88,88,0,0,1,216,104Zm-16,0a72,72,0,0,0-73.74-72c-39,.92-70.47,33.39-70.26,72.39a71.65,71.65,0,0,0,27.64,56.3A32,32,0,0,1,96,186v6h64v-6a32.15,32.15,0,0,1,12.47-25.35A71.65,71.65,0,0,0,200,104Z"/></svg>
-                                            <span>{tip2}</span>
-                                        </div>
-                                    )}
+                        <div style={paramCellStyle}>
+                            <div style={{ marginBottom: 20, textAlign: isMobile ? "center" as const : undefined }}>
+                                <div style={{ fontSize: activeLabelSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", justifyContent: isMobile ? "center" : "flex-start", whiteSpace: "nowrap" as const }}>
+                                    <svg width={iconSize} height={iconSize} viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6 }}><path d="M231.88,175.08A56.26,56.26,0,0,1,176,224C96.6,224,32,159.4,32,80A56.26,56.26,0,0,1,80.92,24.12a16,16,0,0,1,16.62,9.52l21.12,47.15v.12A16,16,0,0,1,117.39,96c-.18.27-.37.52-.57.77L96,121.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,231.88,175.08ZM157.66,50.34,176,68.69l18.34-18.35a8,8,0,0,1,11.32,11.32L187.31,80l18.35,18.34a8,8,0,0,1-11.32,11.32L176,91.31l-18.34,18.35a8,8,0,0,1-11.32-11.32L164.69,80,146.34,61.66a8,8,0,0,1,11.32-11.32Z"/></svg>{label2}
                                 </div>
-                            )}
+                                <div style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4 }}>{hint2}</div>
+                                {tip2 && (
+                                    <div style={{ marginTop: 8, fontSize: 11, color: "#92700C", lineHeight: 1.5, background: "#FFF9E6", borderRadius: 10, padding: "10px 14px", display: "flex", alignItems: "flex-start", justifyContent: isMobile ? "center" : "flex-start", gap: 7 }}>
+                                        <svg width="14" height="14" viewBox="0 0 256 256" fill="#B8930F" style={{ flexShrink: 0, marginTop: 1 }}><path d="M176,232a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,232Zm40-128a87.55,87.55,0,0,1-33.64,69.21A16.24,16.24,0,0,0,176,186v6a16,16,0,0,1-16,16H96a16,16,0,0,1-16-16v-6a16,16,0,0,0-6.23-12.66A87.59,87.59,0,0,1,40,104.49C39.74,56.83,78.26,17.14,125.88,16A88,88,0,0,1,216,104Zm-16,0a72,72,0,0,0-73.74-72c-39,.92-70.47,33.39-70.26,72.39a71.65,71.65,0,0,0,27.64,56.3A32,32,0,0,1,96,186v6h64v-6a32.15,32.15,0,0,1,12.47-25.35A71.65,71.65,0,0,0,200,104Z"/></svg>
+                                        <span>{tip2}</span>
+                                    </div>
+                                )}
+                            </div>
                             <PillSlider
                                 value={missedRate}
                                 min={minMissedRate}
