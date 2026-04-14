@@ -380,7 +380,7 @@ function PillSlider({
                     style={{
                         height: "100%",
                         width: `${pct}%`,
-                        background: primaryColor,
+                        background: "#1B1B1B",
                         borderRadius: 4,
                         transition: isDragging.current ? "none" : "width 0.1s ease",
                         pointerEvents: "none",
