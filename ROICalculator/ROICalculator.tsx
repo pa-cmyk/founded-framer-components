@@ -716,7 +716,7 @@ export function ROICalculator({
                                     <div style={{ fontSize: activeLabelSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", justifyContent: "center", whiteSpace: "nowrap" as const }}>
                                         <svg width={iconSize} height={iconSize} viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6 }}><path d="M231.88,175.08A56.26,56.26,0,0,1,176,224C96.6,224,32,159.4,32,80A56.26,56.26,0,0,1,80.92,24.12a16,16,0,0,1,16.62,9.52l21.12,47.15v.12A16,16,0,0,1,117.39,96c-.18.27-.37.52-.57.77L96,121.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,231.88,175.08Z"/></svg>{label1}
                                     </div>
-                                    <a href={hintLink1} target="_blank" rel="noopener noreferrer" style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4, whiteSpace: "nowrap" as const, textDecoration: "underline", display: "block" }}>{hint1}</a>
+                                    <div style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4, whiteSpace: "nowrap" as const }}>{hint1}</div>
                                 </div>
                                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 20 }}>
                                     <StepperBtn label="−" onClick={() => handleStepCalls(-stepCalls)} primaryColor={primaryColor} isMobile={isMobile} />
@@ -749,7 +749,7 @@ export function ROICalculator({
                                 <div style={{ fontSize: activeLabelSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", whiteSpace: "nowrap" as const }}>
                                     <svg width={iconSize} height={iconSize} viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6 }}><path d="M231.88,175.08A56.26,56.26,0,0,1,176,224C96.6,224,32,159.4,32,80A56.26,56.26,0,0,1,80.92,24.12a16,16,0,0,1,16.62,9.52l21.12,47.15v.12A16,16,0,0,1,117.39,96c-.18.27-.37.52-.57.77L96,121.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,231.88,175.08Z"/></svg>{label1}
                                 </div>
-                                <a href={hintLink1} target="_blank" rel="noopener noreferrer" style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4, whiteSpace: "nowrap" as const, textDecoration: "underline", display: "block" }}>{hint1}</a>
+                                <div style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4, whiteSpace: "nowrap" as const }}>{hint1}</div>
                             </div>
                             <div>
                                 <div style={{ fontSize: activeLabelSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", whiteSpace: "nowrap" as const }}>
@@ -868,7 +868,7 @@ export function ROICalculator({
                                 <div style={{ fontSize: activeLabelSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", justifyContent: isMobile ? "center" : "flex-start", whiteSpace: "nowrap" as const }}>
                                     <svg width={iconSize} height={iconSize} viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6 }}><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM169.66,133.66l-48,48a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L116,164.69l42.34-42.35a8,8,0,0,1,11.32,11.32ZM48,80V48H72v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80Z"/></svg>{label4}
                                 </div>
-                                <a href={hintLink4} target="_blank" rel="noopener noreferrer" style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4, whiteSpace: "nowrap" as const, textDecoration: "underline", display: "block" }}>{hint4}</a>
+                                <div style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4, whiteSpace: "nowrap" as const }}>{hint4}</div>
                             </div>
                             <div style={{ marginTop: isMobile ? 0 : "auto" }}>
                                 <PillSlider
