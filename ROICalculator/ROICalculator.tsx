@@ -151,12 +151,12 @@ function StepperBtn({
                 height: size,
                 borderRadius: "50%",
                 border: "none",
-                background: hovered ? "#E0E0E0" : "#F0F0F0",
+                background: hovered ? "#333333" : "#1B1B1B",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 fontSize,
-                color: "#1B1B1B",
+                color: "#FFFFFF",
                 cursor: "pointer",
                 transition: "all 0.15s",
                 flexShrink: 0,
@@ -716,7 +716,7 @@ export function ROICalculator({
                                     <div style={{ fontSize: activeLabelSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", justifyContent: "center", whiteSpace: "nowrap" as const }}>
                                         <svg width={iconSize} height={iconSize} viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6 }}><path d="M231.88,175.08A56.26,56.26,0,0,1,176,224C96.6,224,32,159.4,32,80A56.26,56.26,0,0,1,80.92,24.12a16,16,0,0,1,16.62,9.52l21.12,47.15v.12A16,16,0,0,1,117.39,96c-.18.27-.37.52-.57.77L96,121.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,231.88,175.08Z"/></svg>{label1}
                                     </div>
-                                    <a href={hintLink1} target="_blank" rel="noopener noreferrer" style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4, whiteSpace: "nowrap" as const, textDecoration: "none", display: "block" }}>{hint1}</a>
+                                    <a href={hintLink1} target="_blank" rel="noopener noreferrer" style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4, whiteSpace: "nowrap" as const, textDecoration: "underline", display: "block" }}>{hint1}</a>
                                 </div>
                                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 20 }}>
                                     <StepperBtn label="−" onClick={() => handleStepCalls(-stepCalls)} primaryColor={primaryColor} isMobile={isMobile} />
@@ -731,7 +731,7 @@ export function ROICalculator({
                                     <div style={{ fontSize: activeLabelSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", justifyContent: "center", whiteSpace: "nowrap" as const }}>
                                         <svg width={iconSize} height={iconSize} viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6 }}><path d="M231.88,175.08A56.26,56.26,0,0,1,176,224C96.6,224,32,159.4,32,80A56.26,56.26,0,0,1,80.92,24.12a16,16,0,0,1,16.62,9.52l21.12,47.15v.12A16,16,0,0,1,117.39,96c-.18.27-.37.52-.57.77L96,121.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,231.88,175.08ZM157.66,50.34,176,68.69l18.34-18.35a8,8,0,0,1,11.32,11.32L187.31,80l18.35,18.34a8,8,0,0,1-11.32,11.32L176,91.31l-18.34,18.35a8,8,0,0,1-11.32-11.32L164.69,80,146.34,61.66a8,8,0,0,1,11.32-11.32Z"/></svg>{label2}
                                     </div>
-                                    <a href={hintLink2} target="_blank" rel="noopener noreferrer" style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4, whiteSpace: "nowrap" as const, textDecoration: "none", display: "block" }}>{hint2}</a>
+                                    <a href={hintLink2} target="_blank" rel="noopener noreferrer" style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4, whiteSpace: "nowrap" as const, textDecoration: "underline", display: "block" }}>{hint2}</a>
                                     {tip2 && (
                                         <div style={{ marginTop: 8, fontSize: 11, color: "#92700C", lineHeight: 1.5, background: "transparent", borderRadius: 0, padding: "0", display: "flex", alignItems: "flex-start", justifyContent: "center", gap: 7 }}>
                                             <svg width="14" height="14" viewBox="0 0 256 256" fill="#B8930F" style={{ flexShrink: 0, marginTop: 1 }}><path d="M176,232a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,232Zm40-128a87.55,87.55,0,0,1-33.64,69.21A16.24,16.24,0,0,0,176,186v6a16,16,0,0,1-16,16H96a16,16,0,0,1-16-16v-6a16,16,0,0,0-6.23-12.66A87.59,87.59,0,0,1,40,104.49C39.74,56.83,78.26,17.14,125.88,16A88,88,0,0,1,216,104Zm-16,0a72,72,0,0,0-73.74-72c-39,.92-70.47,33.39-70.26,72.39a71.65,71.65,0,0,0,27.64,56.3A32,32,0,0,1,96,186v6h64v-6a32.15,32.15,0,0,1,12.47-25.35A71.65,71.65,0,0,0,200,104Z"/></svg>
@@ -749,13 +749,13 @@ export function ROICalculator({
                                 <div style={{ fontSize: activeLabelSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", whiteSpace: "nowrap" as const }}>
                                     <svg width={iconSize} height={iconSize} viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6 }}><path d="M231.88,175.08A56.26,56.26,0,0,1,176,224C96.6,224,32,159.4,32,80A56.26,56.26,0,0,1,80.92,24.12a16,16,0,0,1,16.62,9.52l21.12,47.15v.12A16,16,0,0,1,117.39,96c-.18.27-.37.52-.57.77L96,121.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,231.88,175.08Z"/></svg>{label1}
                                 </div>
-                                <a href={hintLink1} target="_blank" rel="noopener noreferrer" style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4, whiteSpace: "nowrap" as const, textDecoration: "none", display: "block" }}>{hint1}</a>
+                                <a href={hintLink1} target="_blank" rel="noopener noreferrer" style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4, whiteSpace: "nowrap" as const, textDecoration: "underline", display: "block" }}>{hint1}</a>
                             </div>
                             <div>
                                 <div style={{ fontSize: activeLabelSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", whiteSpace: "nowrap" as const }}>
                                     <svg width={iconSize} height={iconSize} viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6 }}><path d="M231.88,175.08A56.26,56.26,0,0,1,176,224C96.6,224,32,159.4,32,80A56.26,56.26,0,0,1,80.92,24.12a16,16,0,0,1,16.62,9.52l21.12,47.15v.12A16,16,0,0,1,117.39,96c-.18.27-.37.52-.57.77L96,121.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,231.88,175.08ZM157.66,50.34,176,68.69l18.34-18.35a8,8,0,0,1,11.32,11.32L187.31,80l18.35,18.34a8,8,0,0,1-11.32,11.32L176,91.31l-18.34,18.35a8,8,0,0,1-11.32-11.32L164.69,80,146.34,61.66a8,8,0,0,1,11.32-11.32Z"/></svg>{label2}
                                 </div>
-                                <a href={hintLink2} target="_blank" rel="noopener noreferrer" style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4, whiteSpace: "nowrap" as const, textDecoration: "none", display: "block" }}>{hint2}</a>
+                                <a href={hintLink2} target="_blank" rel="noopener noreferrer" style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4, whiteSpace: "nowrap" as const, textDecoration: "underline", display: "block" }}>{hint2}</a>
                                 {tip2 && (
                                     <div style={{ marginTop: 8, fontSize: 11, color: "#92700C", lineHeight: 1.5, background: "transparent", borderRadius: 0, padding: "0", display: "flex", alignItems: "flex-start", gap: 7 }}>
                                         <svg width="14" height="14" viewBox="0 0 256 256" fill="#B8930F" style={{ flexShrink: 0, marginTop: 1 }}><path d="M176,232a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,232Zm40-128a87.55,87.55,0,0,1-33.64,69.21A16.24,16.24,0,0,0,176,186v6a16,16,0,0,1-16,16H96a16,16,0,0,1-16-16v-6a16,16,0,0,0-6.23-12.66A87.59,87.59,0,0,1,40,104.49C39.74,56.83,78.26,17.14,125.88,16A88,88,0,0,1,216,104Zm-16,0a72,72,0,0,0-73.74-72c-39,.92-70.47,33.39-70.26,72.39a71.65,71.65,0,0,0,27.64,56.3A32,32,0,0,1,96,186v6h64v-6a32.15,32.15,0,0,1,12.47-25.35A71.65,71.65,0,0,0,200,104Z"/></svg>
@@ -795,7 +795,7 @@ export function ROICalculator({
                                 <div style={{ fontSize: activeLabelSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", justifyContent: isMobile ? "center" : "flex-start", whiteSpace: "nowrap" as const }}>
                                     <svg width={iconSize} height={iconSize} viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6 }}><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16H41.72L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152H196.1a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87Z"/></svg>{label3}
                                 </div>
-                                <a href={hintLink3} target="_blank" rel="noopener noreferrer" style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4, whiteSpace: "nowrap" as const, textDecoration: "none", display: "block" }}>{hint3}</a>
+                                <a href={hintLink3} target="_blank" rel="noopener noreferrer" style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4, whiteSpace: "nowrap" as const, textDecoration: "underline", display: "block" }}>{hint3}</a>
                             </div>
                             <div
                                 style={{
@@ -868,7 +868,7 @@ export function ROICalculator({
                                 <div style={{ fontSize: activeLabelSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", justifyContent: isMobile ? "center" : "flex-start", whiteSpace: "nowrap" as const }}>
                                     <svg width={iconSize} height={iconSize} viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6 }}><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM169.66,133.66l-48,48a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L116,164.69l42.34-42.35a8,8,0,0,1,11.32,11.32ZM48,80V48H72v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80Z"/></svg>{label4}
                                 </div>
-                                <a href={hintLink4} target="_blank" rel="noopener noreferrer" style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4, whiteSpace: "nowrap" as const, textDecoration: "none", display: "block" }}>{hint4}</a>
+                                <a href={hintLink4} target="_blank" rel="noopener noreferrer" style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4, whiteSpace: "nowrap" as const, textDecoration: "underline", display: "block" }}>{hint4}</a>
                             </div>
                             <div style={{ marginTop: isMobile ? 0 : "auto" }}>
                                 <PillSlider
