@@ -627,7 +627,7 @@ export function ROICalculator({
         : {
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
-              gap: "8px 56px",
+              gap: "8px 32px",
               padding: "32px 0",
               borderBottom: "1px solid #F0F0F0",
           }
@@ -710,7 +710,7 @@ export function ROICalculator({
                     {/* ROW 1: calls (left) + missed rate slider (right) */}
                     {/* Titles row — aligned on same line in desktop */}
                     {!isMobile && (
-                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px 56px", paddingBottom: 0 }}>
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px 32px", paddingBottom: 0 }}>
                             <div>
                                 <div style={{ fontSize: activeLabelSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center" }}>
                                     <svg width={iconSize} height={iconSize} viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6 }}><path d="M231.88,175.08A56.26,56.26,0,0,1,176,224C96.6,224,32,159.4,32,80A56.26,56.26,0,0,1,80.92,24.12a16,16,0,0,1,16.62,9.52l21.12,47.15v.12A16,16,0,0,1,117.39,96c-.18.27-.37.52-.57.77L96,121.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,231.88,175.08Z"/></svg>{label1}
@@ -1302,7 +1302,7 @@ ROICalculator.defaultProps = {
     thumbRingColor: "#FFFFFF",
     thumbRingWidth: 5,
     workDays: 22,
-    maxWidth: 640,
+    maxWidth: 720,
 }
 
 // ─── Property Controls ────────────────────────────────────────────────────────
@@ -1652,7 +1652,7 @@ addPropertyControls(ROICalculator, {
     maxWidth: {
         title: "Largeur max (px)",
         type: ControlType.Number,
-        defaultValue: 640,
+        defaultValue: 720,
         min: 320,
         max: 1200,
         step: 10,
