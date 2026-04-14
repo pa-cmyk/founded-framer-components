@@ -764,7 +764,7 @@ export function ROICalculator({
                                 )}
                             </div>
                             {/* Row 2 of grid: inputs — guaranteed same vertical start */}
-                            <div style={{ paddingTop: 20, display: "flex", alignItems: "center", justifyContent: "center", gap: 20 }}>
+                            <div style={{ paddingTop: 20, display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 20 }}>
                                 <StepperBtn label="−" onClick={() => handleStepCalls(-stepCalls)} primaryColor={primaryColor} isMobile={isMobile} />
                                 <div style={{ display: "flex", alignItems: "baseline", gap: 4, minWidth: 80, justifyContent: "center" }}>
                                     <span style={{ fontSize: numberFontSize, fontWeight: 600, color: "#1B1B1B", letterSpacing: "-0.03em", lineHeight: 1, fontVariantNumeric: "tabular-nums", transform: callsBump === "up" ? "translateY(-3px)" : callsBump === "down" ? "translateY(3px)" : "translateY(0)", opacity: callsBump ? 0.7 : 1, transition: "transform 0.15s ease-out, opacity 0.15s ease-out", display: "inline-block" }}>{calls}</span>
@@ -801,7 +801,7 @@ export function ROICalculator({
                                 style={{
                                     display: "flex",
                                     alignItems: "center",
-                                    justifyContent: "center",
+                                    justifyContent: isMobile ? "center" : "flex-start",
                                     gap: 20,
                                     marginTop: isMobile ? 0 : "auto",
                                 }}
