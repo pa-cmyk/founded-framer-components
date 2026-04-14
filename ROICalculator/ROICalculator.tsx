@@ -1293,16 +1293,16 @@ ROICalculator.defaultProps = {
     maxRdvRate: 100,
     stepRdvRate: 1,
 
-    labelFontSize: 18,
+    labelFontSize: 20,
     labelColor: "#1B1B1B",
-    hintFontSize: 15,
+    hintFontSize: 16,
     resultsTitleText: "Vos résultats",
 
     primaryColor: "#3067FF",
     thumbRingColor: "#FFFFFF",
     thumbRingWidth: 5,
     workDays: 22,
-    maxWidth: 780,
+    maxWidth: 900,
 }
 
 // ─── Property Controls ────────────────────────────────────────────────────────
@@ -1312,7 +1312,7 @@ addPropertyControls(ROICalculator, {
     labelFontSize: {
         title: "Taille labels (px)",
         type: ControlType.Number,
-        defaultValue: 18,
+        defaultValue: 20,
         min: 10,
         max: 30,
         step: 1,
@@ -1326,7 +1326,7 @@ addPropertyControls(ROICalculator, {
     hintFontSize: {
         title: "Taille sous-textes (px)",
         type: ControlType.Number,
-        defaultValue: 15,
+        defaultValue: 16,
         min: 9,
         max: 22,
         step: 1,
@@ -1652,7 +1652,7 @@ addPropertyControls(ROICalculator, {
     maxWidth: {
         title: "Largeur max (px)",
         type: ControlType.Number,
-        defaultValue: 780,
+        defaultValue: 900,
         min: 320,
         max: 1200,
         step: 10,
