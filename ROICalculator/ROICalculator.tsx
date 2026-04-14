@@ -73,6 +73,12 @@ type Props = {
     maxRdvRate: number
     stepRdvRate: number
 
+    // Typography
+    labelFontSize: number
+    labelColor: string
+    hintFontSize: number
+    resultsTitleText: string
+
     // Style
     primaryColor: string
     thumbRingColor: string
@@ -464,6 +470,10 @@ export function ROICalculator({
     minRdvRate,
     maxRdvRate,
     stepRdvRate,
+    labelFontSize,
+    labelColor,
+    hintFontSize,
+    resultsTitleText,
     primaryColor,
     thumbRingColor,
     thumbRingWidth,
@@ -697,27 +707,17 @@ export function ROICalculator({
                     {/* Titles row — aligned on same line in desktop */}
                     {!isMobile && (
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 40px", paddingBottom: 0 }}>
-                            <div
-                                style={{
-                                    fontSize: 13,
-                                    fontWeight: 500,
-                                    color: "rgba(28,28,28,0.55)",
-                                    display: "flex",
-                                    alignItems: "center",
-                                }}
-                            >
-                                <svg width="15" height="15" viewBox="0 0 256 256" fill="rgba(28,28,28,0.55)" style={{ flexShrink: 0, marginRight: 6 }}><path d="M144.27,45.93a8,8,0,0,1,9.8-5.66,86.22,86.22,0,0,1,61.66,61.66,8,8,0,0,1-5.66,9.8A8.23,8.23,0,0,1,208,112a8,8,0,0,1-7.73-5.94,70.35,70.35,0,0,0-50.33-50.33A8,8,0,0,1,144.27,45.93Zm-2.33,41.8c13.79,3.68,22.65,12.54,26.33,26.33A8,8,0,0,0,176,120a8.23,8.23,0,0,0,2.07-.27,8,8,0,0,0,5.66-9.8c-5.12-19.16-18.5-32.54-37.66-37.66a8,8,0,1,0-4.13,15.46Zm81.94,95.35A56.26,56.26,0,0,1,168,232C88.6,232,24,167.4,24,88A56.26,56.26,0,0,1,72.92,32.12a16,16,0,0,1,16.62,9.52l21.12,47.15,0,.12A16,16,0,0,1,109.39,104c-.18.27-.37.52-.57.77L88,129.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,223.88,183.08Zm-15.88-2s-.07,0-.11,0h0l-47-21.05-24.35,20.71a8.44,8.44,0,0,1-.74.56,16,16,0,0,1-15.75,1.14c-18.73-9.05-37.4-27.58-46.46-46.11a16,16,0,0,1,1-15.7,6.13,6.13,0,0,1,.57-.77L96,95.15l-21-47a.61.61,0,0,1,0-.12A40.2,40.2,0,0,0,40,88,128.14,128.14,0,0,0,168,216,40.21,40.21,0,0,0,208,181.07Z"/></svg>{label1}
+                            <div>
+                                <div style={{ fontSize: labelFontSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center" }}>
+                                    <svg width="15" height="15" viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6, opacity: 0.55 }}><path d="M144.27,45.93a8,8,0,0,1,9.8-5.66,86.22,86.22,0,0,1,61.66,61.66,8,8,0,0,1-5.66,9.8A8.23,8.23,0,0,1,208,112a8,8,0,0,1-7.73-5.94,70.35,70.35,0,0,0-50.33-50.33A8,8,0,0,1,144.27,45.93Zm-2.33,41.8c13.79,3.68,22.65,12.54,26.33,26.33A8,8,0,0,0,176,120a8.23,8.23,0,0,0,2.07-.27,8,8,0,0,0,5.66-9.8c-5.12-19.16-18.5-32.54-37.66-37.66a8,8,0,1,0-4.13,15.46Zm81.94,95.35A56.26,56.26,0,0,1,168,232C88.6,232,24,167.4,24,88A56.26,56.26,0,0,1,72.92,32.12a16,16,0,0,1,16.62,9.52l21.12,47.15,0,.12A16,16,0,0,1,109.39,104c-.18.27-.37.52-.57.77L88,129.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,223.88,183.08Zm-15.88-2s-.07,0-.11,0h0l-47-21.05-24.35,20.71a8.44,8.44,0,0,1-.74.56,16,16,0,0,1-15.75,1.14c-18.73-9.05-37.4-27.58-46.46-46.11a16,16,0,0,1,1-15.7,6.13,6.13,0,0,1,.57-.77L96,95.15l-21-47a.61.61,0,0,1,0-.12A40.2,40.2,0,0,0,40,88,128.14,128.14,0,0,0,168,216,40.21,40.21,0,0,0,208,181.07Z"/></svg>{label1}
+                                </div>
+                                <div style={{ fontSize: hintFontSize, color: "rgba(28,28,28,0.35)", marginTop: 4 }}>{hint1}</div>
                             </div>
-                            <div
-                                style={{
-                                    fontSize: 13,
-                                    fontWeight: 500,
-                                    color: "rgba(28,28,28,0.55)",
-                                    display: "flex",
-                                    alignItems: "center",
-                                }}
-                            >
-                                <svg width="15" height="15" viewBox="0 0 256 256" fill="rgba(28,28,28,0.55)" style={{ flexShrink: 0, marginRight: 6 }}><path d="M146.34,98.34,164.69,80,146.34,61.66a8,8,0,0,1,11.32-11.32L176,68.69l18.34-18.35a8,8,0,0,1,11.32,11.32L187.32,80l18.34,18.34a8,8,0,0,1-11.32,11.32L176,91.31l-18.34,18.35a8,8,0,0,1-11.32-11.32Zm77.54,84.74A56.26,56.26,0,0,1,168,232C88.6,232,24,167.4,24,88A56.26,56.26,0,0,1,72.92,32.12a16,16,0,0,1,16.62,9.52l21.12,47.15,0,.12A16,16,0,0,1,109.39,104c-.18.27-.37.52-.57.77L88,129.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,223.88,183.08Zm-15.88-2s-.07,0-.11,0h0l-47-21.05-24.35,20.71a8.44,8.44,0,0,1-.74.56,16,16,0,0,1-15.75,1.14c-18.73-9.05-37.4-27.58-46.46-46.11a16,16,0,0,1,1-15.7,6.13,6.13,0,0,1,.57-.77L96,95.15l-21-47a.61.61,0,0,1,0-.12A40.2,40.2,0,0,0,40,88,128.14,128.14,0,0,0,168,216,40.21,40.21,0,0,0,208,181.07Z"/></svg>{label2}
+                            <div>
+                                <div style={{ fontSize: labelFontSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center" }}>
+                                    <svg width="15" height="15" viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6, opacity: 0.55 }}><path d="M146.34,98.34,164.69,80,146.34,61.66a8,8,0,0,1,11.32-11.32L176,68.69l18.34-18.35a8,8,0,0,1,11.32,11.32L187.32,80l18.34,18.34a8,8,0,0,1-11.32,11.32L176,91.31l-18.34,18.35a8,8,0,0,1-11.32-11.32Zm77.54,84.74A56.26,56.26,0,0,1,168,232C88.6,232,24,167.4,24,88A56.26,56.26,0,0,1,72.92,32.12a16,16,0,0,1,16.62,9.52l21.12,47.15,0,.12A16,16,0,0,1,109.39,104c-.18.27-.37.52-.57.77L88,129.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,223.88,183.08Zm-15.88-2s-.07,0-.11,0h0l-47-21.05-24.35,20.71a8.44,8.44,0,0,1-.74.56,16,16,0,0,1-15.75,1.14c-18.73-9.05-37.4-27.58-46.46-46.11a16,16,0,0,1,1-15.7,6.13,6.13,0,0,1,.57-.77L96,95.15l-21-47a.61.61,0,0,1,0-.12A40.2,40.2,0,0,0,40,88,128.14,128.14,0,0,0,168,216,40.21,40.21,0,0,0,208,181.07Z"/></svg>{label2}
+                                </div>
+                                <div style={{ fontSize: hintFontSize, color: "rgba(28,28,28,0.35)", marginTop: 4 }}>{hint2}</div>
                             </div>
                         </div>
                     )}
@@ -725,19 +725,11 @@ export function ROICalculator({
                         {/* Cell 1: Calls stepper */}
                         <div style={paramCellStyle}>
                             {isMobile && (
-                                <div
-                                    style={{
-                                        fontSize: 13,
-                                        fontWeight: 500,
-                                        color: "rgba(28,28,28,0.55)",
-                                        marginBottom: 20,
-                                        textAlign: "center" as const,
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                    }}
-                                >
-                                    <svg width="15" height="15" viewBox="0 0 256 256" fill="rgba(28,28,28,0.55)" style={{ flexShrink: 0, marginRight: 6 }}><path d="M144.27,45.93a8,8,0,0,1,9.8-5.66,86.22,86.22,0,0,1,61.66,61.66,8,8,0,0,1-5.66,9.8A8.23,8.23,0,0,1,208,112a8,8,0,0,1-7.73-5.94,70.35,70.35,0,0,0-50.33-50.33A8,8,0,0,1,144.27,45.93Zm-2.33,41.8c13.79,3.68,22.65,12.54,26.33,26.33A8,8,0,0,0,176,120a8.23,8.23,0,0,0,2.07-.27,8,8,0,0,0,5.66-9.8c-5.12-19.16-18.5-32.54-37.66-37.66a8,8,0,1,0-4.13,15.46Zm81.94,95.35A56.26,56.26,0,0,1,168,232C88.6,232,24,167.4,24,88A56.26,56.26,0,0,1,72.92,32.12a16,16,0,0,1,16.62,9.52l21.12,47.15,0,.12A16,16,0,0,1,109.39,104c-.18.27-.37.52-.57.77L88,129.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,223.88,183.08Zm-15.88-2s-.07,0-.11,0h0l-47-21.05-24.35,20.71a8.44,8.44,0,0,1-.74.56,16,16,0,0,1-15.75,1.14c-18.73-9.05-37.4-27.58-46.46-46.11a16,16,0,0,1,1-15.7,6.13,6.13,0,0,1,.57-.77L96,95.15l-21-47a.61.61,0,0,1,0-.12A40.2,40.2,0,0,0,40,88,128.14,128.14,0,0,0,168,216,40.21,40.21,0,0,0,208,181.07Z"/></svg>{label1}
+                                <div style={{ marginBottom: 20, textAlign: "center" as const }}>
+                                    <div style={{ fontSize: labelFontSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                        <svg width="15" height="15" viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6, opacity: 0.55 }}><path d="M144.27,45.93a8,8,0,0,1,9.8-5.66,86.22,86.22,0,0,1,61.66,61.66,8,8,0,0,1-5.66,9.8A8.23,8.23,0,0,1,208,112a8,8,0,0,1-7.73-5.94,70.35,70.35,0,0,0-50.33-50.33A8,8,0,0,1,144.27,45.93Zm-2.33,41.8c13.79,3.68,22.65,12.54,26.33,26.33A8,8,0,0,0,176,120a8.23,8.23,0,0,0,2.07-.27,8,8,0,0,0,5.66-9.8c-5.12-19.16-18.5-32.54-37.66-37.66a8,8,0,1,0-4.13,15.46Zm81.94,95.35A56.26,56.26,0,0,1,168,232C88.6,232,24,167.4,24,88A56.26,56.26,0,0,1,72.92,32.12a16,16,0,0,1,16.62,9.52l21.12,47.15,0,.12A16,16,0,0,1,109.39,104c-.18.27-.37.52-.57.77L88,129.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,223.88,183.08Zm-15.88-2s-.07,0-.11,0h0l-47-21.05-24.35,20.71a8.44,8.44,0,0,1-.74.56,16,16,0,0,1-15.75,1.14c-18.73-9.05-37.4-27.58-46.46-46.11a16,16,0,0,1,1-15.7,6.13,6.13,0,0,1,.57-.77L96,95.15l-21-47a.61.61,0,0,1,0-.12A40.2,40.2,0,0,0,40,88,128.14,128.14,0,0,0,168,216,40.21,40.21,0,0,0,208,181.07Z"/></svg>{label1}
+                                    </div>
+                                    <div style={{ fontSize: hintFontSize, color: "rgba(28,28,28,0.35)", marginTop: 4 }}>{hint1}</div>
                                 </div>
                             )}
                             <div
@@ -793,53 +785,16 @@ export function ROICalculator({
                                     isMobile={isMobile}
                                 />
                             </div>
-                            <a
-                                href={hintLink1}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: isMobile ? "center" : "flex-start",
-                                    gap: 5,
-                                    marginTop: 12,
-                                    fontSize: 11,
-                                    color: "rgba(28,28,28,0.35)",
-                                    textDecoration: "none",
-                                    cursor: "pointer",
-                                }}
-                                onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.55)"; e.currentTarget.style.textDecoration = "underline" }}
-                                onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.35)"; e.currentTarget.style.textDecoration = "none" }}
-                            >
-                                <div
-                                    style={{
-                                        width: 4,
-                                        height: 4,
-                                        background: "rgba(28,28,28,0.2)",
-                                        borderRadius: "50%",
-                                        flexShrink: 0,
-                                    }}
-                                />
-                                {hint1}
-                            </a>
                         </div>
 
                         {/* Cell 2: Missed rate slider */}
                         <div style={isMobile ? { ...paramCellStyle } : paramCellStyle}>
                             {isMobile && (
-                                <div
-                                    style={{
-                                        fontSize: 13,
-                                        fontWeight: 500,
-                                        color: "rgba(28,28,28,0.55)",
-                                        marginBottom: 20,
-                                        textAlign: "center" as const,
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                    }}
-                                >
-                                    <svg width="15" height="15" viewBox="0 0 256 256" fill="rgba(28,28,28,0.55)" style={{ flexShrink: 0, marginRight: 6 }}><path d="M146.34,98.34,164.69,80,146.34,61.66a8,8,0,0,1,11.32-11.32L176,68.69l18.34-18.35a8,8,0,0,1,11.32,11.32L187.32,80l18.34,18.34a8,8,0,0,1-11.32,11.32L176,91.31l-18.34,18.35a8,8,0,0,1-11.32-11.32Zm77.54,84.74A56.26,56.26,0,0,1,168,232C88.6,232,24,167.4,24,88A56.26,56.26,0,0,1,72.92,32.12a16,16,0,0,1,16.62,9.52l21.12,47.15,0,.12A16,16,0,0,1,109.39,104c-.18.27-.37.52-.57.77L88,129.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,223.88,183.08Zm-15.88-2s-.07,0-.11,0h0l-47-21.05-24.35,20.71a8.44,8.44,0,0,1-.74.56,16,16,0,0,1-15.75,1.14c-18.73-9.05-37.4-27.58-46.46-46.11a16,16,0,0,1,1-15.7,6.13,6.13,0,0,1,.57-.77L96,95.15l-21-47a.61.61,0,0,1,0-.12A40.2,40.2,0,0,0,40,88,128.14,128.14,0,0,0,168,216,40.21,40.21,0,0,0,208,181.07Z"/></svg>{label2}
+                                <div style={{ marginBottom: 20, textAlign: "center" as const }}>
+                                    <div style={{ fontSize: labelFontSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                        <svg width="15" height="15" viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6, opacity: 0.55 }}><path d="M146.34,98.34,164.69,80,146.34,61.66a8,8,0,0,1,11.32-11.32L176,68.69l18.34-18.35a8,8,0,0,1,11.32,11.32L187.32,80l18.34,18.34a8,8,0,0,1-11.32,11.32L176,91.31l-18.34,18.35a8,8,0,0,1-11.32-11.32Zm77.54,84.74A56.26,56.26,0,0,1,168,232C88.6,232,24,167.4,24,88A56.26,56.26,0,0,1,72.92,32.12a16,16,0,0,1,16.62,9.52l21.12,47.15,0,.12A16,16,0,0,1,109.39,104c-.18.27-.37.52-.57.77L88,129.45c7.49,15.22,23.41,31,38.83,38.51l24.34-20.71a8.12,8.12,0,0,1,.75-.56,16,16,0,0,1,15.17-1.4l.13.06,47.11,21.11A16,16,0,0,1,223.88,183.08Zm-15.88-2s-.07,0-.11,0h0l-47-21.05-24.35,20.71a8.44,8.44,0,0,1-.74.56,16,16,0,0,1-15.75,1.14c-18.73-9.05-37.4-27.58-46.46-46.11a16,16,0,0,1,1-15.7,6.13,6.13,0,0,1,.57-.77L96,95.15l-21-47a.61.61,0,0,1,0-.12A40.2,40.2,0,0,0,40,88,128.14,128.14,0,0,0,168,216,40.21,40.21,0,0,0,208,181.07Z"/></svg>{label2}
+                                    </div>
+                                    <div style={{ fontSize: hintFontSize, color: "rgba(28,28,28,0.35)", marginTop: 4 }}>{hint2}</div>
                                 </div>
                             )}
                             <PillSlider
@@ -854,35 +809,6 @@ export function ROICalculator({
                                 thumbRingColor={thumbRingColor}
                                 thumbRingWidth={thumbRingWidth}
                             />
-                            <a
-                                href={hintLink2}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: isMobile ? "center" : "flex-start",
-                                    gap: 5,
-                                    marginTop: 12,
-                                    fontSize: 11,
-                                    color: "rgba(28,28,28,0.35)",
-                                    textDecoration: "none",
-                                    cursor: "pointer",
-                                }}
-                                onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.55)"; e.currentTarget.style.textDecoration = "underline" }}
-                                onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.35)"; e.currentTarget.style.textDecoration = "none" }}
-                            >
-                                <div
-                                    style={{
-                                        width: 4,
-                                        height: 4,
-                                        background: "rgba(28,28,28,0.2)",
-                                        borderRadius: "50%",
-                                        flexShrink: 0,
-                                    }}
-                                />
-                                {hint2}
-                            </a>
                             {tip2 && (
                                 <div
                                     style={{
@@ -920,19 +846,11 @@ export function ROICalculator({
                     >
                         {/* Cell 3: Basket stepper */}
                         <div style={paramCellStyle}>
-                            <div
-                                style={{
-                                    fontSize: 13,
-                                    fontWeight: 500,
-                                    color: "rgba(28,28,28,0.55)",
-                                    marginBottom: 20,
-                                    textAlign: isMobile ? "center" as const : undefined,
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: isMobile ? "center" : "flex-start",
-                                }}
-                            >
-                                <svg width="15" height="15" viewBox="0 0 256 256" fill="rgba(28,28,28,0.55)" style={{ flexShrink: 0, marginRight: 6 }}><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg>{label3}
+                            <div style={{ marginBottom: 20, textAlign: isMobile ? "center" as const : undefined }}>
+                                <div style={{ fontSize: labelFontSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", justifyContent: isMobile ? "center" : "flex-start" }}>
+                                    <svg width="15" height="15" viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6, opacity: 0.55 }}><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z"/></svg>{label3}
+                                </div>
+                                <div style={{ fontSize: hintFontSize, color: "rgba(28,28,28,0.35)", marginTop: 4 }}>{hint3}</div>
                             </div>
                             <div
                                 style={{
@@ -996,52 +914,15 @@ export function ROICalculator({
                                     isMobile={isMobile}
                                 />
                             </div>
-                            <a
-                                href={hintLink3}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: isMobile ? "center" : "flex-start",
-                                    gap: 5,
-                                    marginTop: 12,
-                                    fontSize: 11,
-                                    color: "rgba(28,28,28,0.35)",
-                                    textDecoration: "none",
-                                    cursor: "pointer",
-                                }}
-                                onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.55)"; e.currentTarget.style.textDecoration = "underline" }}
-                                onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.35)"; e.currentTarget.style.textDecoration = "none" }}
-                            >
-                                <div
-                                    style={{
-                                        width: 4,
-                                        height: 4,
-                                        background: "rgba(28,28,28,0.2)",
-                                        borderRadius: "50%",
-                                        flexShrink: 0,
-                                    }}
-                                />
-                                {hint3}
-                            </a>
                         </div>
 
                         {/* Cell 4: RDV rate slider */}
                         <div style={paramCellLastStyle}>
-                            <div
-                                style={{
-                                    fontSize: 13,
-                                    fontWeight: 500,
-                                    color: "rgba(28,28,28,0.55)",
-                                    marginBottom: 20,
-                                    textAlign: isMobile ? "center" as const : undefined,
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: isMobile ? "center" : "flex-start",
-                                }}
-                            >
-                                <svg width="15" height="15" viewBox="0 0 256 256" fill="rgba(28,28,28,0.55)" style={{ flexShrink: 0, marginRight: 6 }}><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Zm-38.34-85.66a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L116,164.69l42.34-42.35A8,8,0,0,1,169.66,122.34Z"/></svg>{label4}
+                            <div style={{ marginBottom: 20, textAlign: isMobile ? "center" as const : undefined }}>
+                                <div style={{ fontSize: labelFontSize, fontWeight: 600, color: labelColor, display: "flex", alignItems: "center", justifyContent: isMobile ? "center" : "flex-start" }}>
+                                    <svg width="15" height="15" viewBox="0 0 256 256" fill={labelColor} style={{ flexShrink: 0, marginRight: 6, opacity: 0.55 }}><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Zm-38.34-85.66a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L116,164.69l42.34-42.35A8,8,0,0,1,169.66,122.34Z"/></svg>{label4}
+                                </div>
+                                <div style={{ fontSize: hintFontSize, color: "rgba(28,28,28,0.35)", marginTop: 4 }}>{hint4}</div>
                             </div>
                             <PillSlider
                                 value={rdvRate}
@@ -1055,35 +936,6 @@ export function ROICalculator({
                                 thumbRingColor={thumbRingColor}
                                 thumbRingWidth={thumbRingWidth}
                             />
-                            <a
-                                href={hintLink4}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: isMobile ? "center" : "flex-start",
-                                    gap: 5,
-                                    marginTop: 12,
-                                    fontSize: 11,
-                                    color: "rgba(28,28,28,0.35)",
-                                    textDecoration: "none",
-                                    cursor: "pointer",
-                                }}
-                                onMouseEnter={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.55)"; e.currentTarget.style.textDecoration = "underline" }}
-                                onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.35)"; e.currentTarget.style.textDecoration = "none" }}
-                            >
-                                <div
-                                    style={{
-                                        width: 4,
-                                        height: 4,
-                                        background: "rgba(28,28,28,0.2)",
-                                        borderRadius: "50%",
-                                        flexShrink: 0,
-                                    }}
-                                />
-                                {hint4}
-                            </a>
                         </div>
                     </div>
 
@@ -1142,6 +994,22 @@ export function ROICalculator({
                     )}
 
                     {/* ── Results Panel ── */}
+                    {showResults && resultsTitleText && (
+                        <div style={{
+                            textAlign: "center",
+                            marginTop: isMobile ? 28 : 40,
+                            marginBottom: -8,
+                        }}>
+                            <h3 style={{
+                                fontSize: isMobile ? 22 : 28,
+                                fontWeight: 600,
+                                color: "#1B1B1B",
+                                letterSpacing: "-0.02em",
+                                margin: 0,
+                                fontFamily: font,
+                            }}>{resultsTitleText}</h3>
+                        </div>
+                    )}
                     {showResults && (() => {
                         const missedCallsMonth = Math.round(calls * (missedRate / 100) * workDays)
                         const lostPatientsMonth = Math.round(missedCallsMonth * (rdvRate / 100))
@@ -1386,9 +1254,9 @@ ROICalculator.defaultProps = {
     label3: "Panier moyen d'un nouveau patient",
     label4: "Part des appels concernant une prise de RDV",
 
-    hint1: "15 appels/jour/praticien*",
+    hint1: "15 appels/jour/praticien en moyenne*",
     hint2: "30% d'appels manqués en cabinet dentaire*",
-    hint3: "Entre 23€ et 45€ par visite*",
+    hint3: "Entre 23€ et 45€ par visite en moyenne*",
     hint4: "45% des appels sont liés à un rendez-vous*",
 
     hintLink1: "https://rcpt.ai/",
@@ -1429,6 +1297,11 @@ ROICalculator.defaultProps = {
     maxRdvRate: 100,
     stepRdvRate: 1,
 
+    labelFontSize: 14,
+    labelColor: "#1B1B1B",
+    hintFontSize: 12,
+    resultsTitleText: "Vos résultats",
+
     primaryColor: "#3067FF",
     thumbRingColor: "#FFFFFF",
     thumbRingWidth: 5,
@@ -1439,6 +1312,36 @@ ROICalculator.defaultProps = {
 // ─── Property Controls ────────────────────────────────────────────────────────
 
 addPropertyControls(ROICalculator, {
+    // ── Typographie ──
+    labelFontSize: {
+        title: "Taille labels (px)",
+        type: ControlType.Number,
+        defaultValue: 14,
+        min: 10,
+        max: 24,
+        step: 1,
+        unit: "px",
+    },
+    labelColor: {
+        title: "Couleur labels",
+        type: ControlType.Color,
+        defaultValue: "#1B1B1B",
+    },
+    hintFontSize: {
+        title: "Taille sous-textes (px)",
+        type: ControlType.Number,
+        defaultValue: 12,
+        min: 9,
+        max: 18,
+        step: 1,
+        unit: "px",
+    },
+    resultsTitleText: {
+        title: "Titre résultats",
+        type: ControlType.String,
+        defaultValue: "Vos résultats",
+    },
+
     // ── Header ──
     showHeader: {
         title: "Afficher le header",
@@ -1491,7 +1394,7 @@ addPropertyControls(ROICalculator, {
     hint1: {
         title: "Hint appels/jour",
         type: ControlType.String,
-        defaultValue: "15 appels/jour/praticien*",
+        defaultValue: "15 appels/jour/praticien en moyenne*",
     },
     hint2: {
         title: "Hint taux manqués",
@@ -1501,7 +1404,7 @@ addPropertyControls(ROICalculator, {
     hint3: {
         title: "Hint panier moyen",
         type: ControlType.String,
-        defaultValue: "Entre 23€ et 45€ par visite*",
+        defaultValue: "Entre 23€ et 45€ par visite en moyenne*",
     },
     hint4: {
         title: "Hint part RDV",
