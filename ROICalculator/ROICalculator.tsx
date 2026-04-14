@@ -630,7 +630,6 @@ export function ROICalculator({
               gap: "0 32px",
               padding: "32px 0",
               borderBottom: "1px solid #F0F0F0",
-              alignItems: "start",
           }
 
     const paramCellStyle: React.CSSProperties = isMobile
@@ -644,7 +643,7 @@ export function ROICalculator({
         : {
               display: "flex",
               flexDirection: "column",
-              justifyContent: "center",
+              justifyContent: "flex-start",
           }
 
     const paramCellLastStyle: React.CSSProperties = isMobile
@@ -724,6 +723,7 @@ export function ROICalculator({
                                     alignItems: "center",
                                     justifyContent: isMobile ? "center" : "flex-start",
                                     gap: 20,
+                                    marginTop: isMobile ? 0 : "auto",
                                 }}
                             >
                                 <StepperBtn
@@ -787,18 +787,20 @@ export function ROICalculator({
                                     </div>
                                 )}
                             </div>
-                            <PillSlider
-                                value={missedRate}
-                                min={minMissedRate}
-                                max={maxMissedRate}
-                                step={stepMissedRate}
-                                onChange={setMissedRate}
-                                primaryColor={primaryColor}
-                                defaultValue={defaultMissedRate}
-                                markerLabel={hint2}
-                                thumbRingColor={thumbRingColor}
-                                thumbRingWidth={thumbRingWidth}
-                            />
+                            <div style={{ marginTop: isMobile ? 0 : "auto" }}>
+                                <PillSlider
+                                    value={missedRate}
+                                    min={minMissedRate}
+                                    max={maxMissedRate}
+                                    step={stepMissedRate}
+                                    onChange={setMissedRate}
+                                    primaryColor={primaryColor}
+                                    defaultValue={defaultMissedRate}
+                                    markerLabel={hint2}
+                                    thumbRingColor={thumbRingColor}
+                                    thumbRingWidth={thumbRingWidth}
+                                />
+                            </div>
                         </div>
                     </div>
 
@@ -828,6 +830,7 @@ export function ROICalculator({
                                     alignItems: "center",
                                     justifyContent: isMobile ? "center" : "flex-start",
                                     gap: 20,
+                                    marginTop: isMobile ? 0 : "auto",
                                 }}
                             >
                                 <StepperBtn
@@ -894,18 +897,20 @@ export function ROICalculator({
                                 </div>
                                 <div style={{ fontSize: activeHintSize, color: "rgba(28,28,28,0.35)", marginTop: 4 }}>{hint4}</div>
                             </div>
-                            <PillSlider
-                                value={rdvRate}
-                                min={minRdvRate}
-                                max={maxRdvRate}
-                                step={stepRdvRate}
-                                onChange={setRdvRate}
-                                primaryColor={primaryColor}
-                                defaultValue={defaultRdvRate}
-                                markerLabel={hint4}
-                                thumbRingColor={thumbRingColor}
-                                thumbRingWidth={thumbRingWidth}
-                            />
+                            <div style={{ marginTop: isMobile ? 0 : "auto" }}>
+                                <PillSlider
+                                    value={rdvRate}
+                                    min={minRdvRate}
+                                    max={maxRdvRate}
+                                    step={stepRdvRate}
+                                    onChange={setRdvRate}
+                                    primaryColor={primaryColor}
+                                    defaultValue={defaultRdvRate}
+                                    markerLabel={hint4}
+                                    thumbRingColor={thumbRingColor}
+                                    thumbRingWidth={thumbRingWidth}
+                                />
+                            </div>
                         </div>
                     </div>
 
