@@ -150,13 +150,13 @@ function StepperBtn({
                 width: size,
                 height: size,
                 borderRadius: "50%",
-                border: `1.5px solid ${hovered ? primaryColor : "#E8E8E8"}`,
-                background: "transparent",
+                border: "none",
+                background: hovered ? "#E0E0E0" : "#F0F0F0",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
                 fontSize,
-                color: "rgba(28,28,28,0.25)",
+                color: "#1B1B1B",
                 cursor: "pointer",
                 transition: "all 0.15s",
                 flexShrink: 0,
@@ -165,6 +165,7 @@ function StepperBtn({
                 lineHeight: 1,
                 padding: 0,
                 outline: "none",
+                fontWeight: 500,
             }}
         >
             {label}
