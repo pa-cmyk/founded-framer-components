@@ -213,6 +213,10 @@ function DemoPillSlider({
 
 // ─── Main component ─────────────────────────────────────────────────────────
 
+/**
+ * @framerSupportedLayoutWidth any
+ * @framerSupportedLayoutHeight auto
+ */
 export function ROICalculatorDemo({
     primaryColor,
     thumbRingColor,
